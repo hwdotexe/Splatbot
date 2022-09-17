@@ -1,0 +1,26 @@
+package com.hadenwatne.splatbot.models.data;
+
+
+import com.hadenwatne.splatbot.enums.ErrorKeys;
+
+public class LanguageError implements Comparable<LanguageError> {
+    private final ErrorKeys key;
+    private final String[] values;
+
+    public LanguageError(ErrorKeys key, String[] values) {
+        this.key = key;
+        this.values = values;
+    }
+
+    public ErrorKeys getKey() {
+        return this.key;
+    }
+
+    public String[] getValues() {
+        return this.values;
+    }
+
+    public int compareTo(LanguageError otherError) {
+        return this.key.name().compareTo(otherError.getKey().name());
+    }
+}
