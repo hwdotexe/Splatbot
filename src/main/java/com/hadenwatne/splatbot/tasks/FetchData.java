@@ -20,11 +20,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class FetchData extends TimerTask {
-	private Timer t;
+	Timer t;
 
 	public FetchData() {
-		t = new Timer();
-
 		run();
 	}
 
@@ -102,10 +100,11 @@ public class FetchData extends TimerTask {
 		App.Splatbot.setStageData(stageData);
 
 		try {
-			String nextDate = stageData.getTurfWar().get(0).getEndTime();
+			String nextDate = stageData.getTurfWar().get(3).getEndTime();
 			DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
 			Date parsed = sdf.parse(nextDate);
 
+			t = new Timer();
 			t.schedule(this, parsed);
 
 			if(App.IsDebug) {

@@ -61,6 +61,7 @@ public class Help extends Command {
 
 			embedBuilder.addField("All Commands", list, false);
 			embedBuilder.addField("Information", "View additional information for each command by using `"+App.Splatbot.getBotName()+" help <command>`!", false);
+			embedBuilder.addField("Summoning "+App.Splatbot.getBotName(), "You can summon me with `"+App.Splatbot.getBotName()+"`, `!sb`, or by using a Slash Command.", false);
 
 			embedBuilder.setFooter(App.Splatbot.getBotName() + (App.IsDebug ? " **Debug Mode**" : ""));
 

@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class TurfWar extends Command {
@@ -42,6 +43,11 @@ public class TurfWar extends Command {
 
                 Calendar end = Calendar.getInstance();
                 end.setTime(sdf.parse(stage.getEndTime()));
+
+                // Don't show past rotations.
+                if(end.getTime().before(new Date())) {
+                    continue;
+                }
 
                 String startTime = (start.get(Calendar.HOUR) == 0 ? 12 : start.get(Calendar.HOUR)) + ":" + start.get(Calendar.MINUTE) + "0" + (start.get(Calendar.AM_PM) == Calendar.AM ? "a" : "p");
                 String endTime = (end.get(Calendar.HOUR) == 0 ? 12 : end.get(Calendar.HOUR)) + ":" + end.get(Calendar.MINUTE) + "0" + (end.get(Calendar.AM_PM) == Calendar.AM ? "a" : "p");
