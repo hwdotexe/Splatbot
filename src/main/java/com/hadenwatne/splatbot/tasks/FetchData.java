@@ -102,7 +102,7 @@ public class FetchData extends TimerTask {
 		App.Splatbot.setStageData(stageData);
 
 		try {
-			String nextDate = stageData.getTurfWar().get(0).getEndTime().replace("Z", "+0000");
+			String nextDate = stageData.getTurfWar().get(0).getEndTime();
 			DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
 			Date parsed = sdf.parse(nextDate);
 

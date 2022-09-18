@@ -9,8 +9,8 @@ public class TurfWarStages {
     private List<String> stages;
 
     public TurfWarStages(String start, String end) {
-        this.startTime = start;
-        this.endTime = end;
+        this.startTime = start.replace("Z", "+0000");;
+        this.endTime = end.replace("Z", "+0000");;
         this.stages = new ArrayList<>();
     }
 

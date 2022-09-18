@@ -10,8 +10,8 @@ public class RankedStages {
     private List<RankedMode> modes;
 
     public RankedStages(String start, String end, List<RankedMode> modes) {
-        this.startTime = start;
-        this.endTime = end;
+        this.startTime = start.replace("Z", "+0000");;
+        this.endTime = end.replace("Z", "+0000");;
         this.modes = modes;
     }
 

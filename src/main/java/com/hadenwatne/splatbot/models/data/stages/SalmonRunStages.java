@@ -10,8 +10,8 @@ public class SalmonRunStages {
     private List<String> weapons;
 
     public SalmonRunStages(String start, String end, String stage, List<String> weapons) {
-        this.startTime = start;
-        this.endTime = end;
+        this.startTime = start.replace("Z", "+0000");;
+        this.endTime = end.replace("Z", "+0000");;
         this.stage = stage;
         this.weapons = weapons;
     }
