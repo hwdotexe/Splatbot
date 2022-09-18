@@ -1,6 +1,97 @@
 {
   "messages": [
     {
+      "key": "DRAW_PROMPT_CHARACTER_ACTION",
+      "values": [
+        "threatening to eat %WC%",
+        "after breaking %WC%",
+        "crying about %WC%",
+        "on a date with %WC%",
+        "getting bullied by %WC%",
+        "debating %WC% strategies",
+        "holding some %WC%",
+        "collecting %WC%",
+        "swimming in a pool of %WC%"
+      ]
+    },
+    {
+      "key": "DRAW_PROMPT_CHARACTER_NAME",
+      "values": [
+        "Reif",
+        "Camden",
+        "Clare",
+        "Delta",
+        "Pike",
+        "Brooke",
+        "Finn",
+        "Shiver",
+        "Frye",
+        "Big Man",
+        "Little Buddy",
+        "`FamiliarNameMissing`",
+        "Salina",
+        "Pearl",
+        "A Squizzard",
+        "Cap'n Cuttlefish",
+        "Marina",
+        "Sheldon",
+        "Judd",
+        "Callie",
+        "Marie"
+      ]
+    },
+    {
+      "key": "DRAW_PROMPT_ENEMIES",
+      "values": [
+        "a Smallfry",
+        "a Cohock",
+        "a Flyfish",
+        "DJ Octavio",
+        "a Chum",
+        "a bad teammate",
+        "a noob",
+        "Mr. Grizz",
+        "an Octoling",
+        "an Octotrooper",
+        "a Fishstick",
+        "a Steel Eel",
+        "a Slammin' Lid"
+      ]
+    },
+    {
+      "key": "DRAW_PROMPT_NOUNS",
+      "values": [
+        "salt",
+        "water",
+        "paint",
+        "salmon egg",
+        "sea snail",
+        "smoothie",
+        "table turf card",
+        "locker",
+        "communication error",
+        "Splatfest tee",
+        "lobby art"
+      ]
+    },
+    {
+      "key": "DRAW_PROMPT_VERBS",
+      "values": [
+        "hunting",
+        "fishing",
+        "playing baseball",
+        "shopping",
+        "eating",
+        "rockin' out",
+        "rapping",
+        "texting",
+        "dancing",
+        "racing",
+        "studying",
+        "playing video games"
+      ]
+    },
+    {
       "key": "GENERIC_SUCCESS",
       "values": [
         "Success!"
@@ -16,6 +107,24 @@
       "key": "SETTING_UPDATED_SUCCESS",
       "values": [
         "Setting was updated successfully!"
+      ]
+    },
+    {
+      "key": "WEAPON_SUGGESTIONS",
+      "values": [
+        "I'm feeling like recommending the %WC% today.",
+        "You could use more practice with the %WC%.",
+        "Want to make it rain (with salt)? Try the %WC%",
+        "Use the %WC%. I dare you.",
+        "Callie would tell you that you suck at the %WC%.",
+        "%WC% - The Great Callie has spoken!",
+        "%WC%. Hands down.",
+        "Nothing's fresher than the %WC%",
+        "%WC% is love, %WC% is life.",
+        "I mean, you could try the %WC%, but I'd be careful...",
+        "Sheldon paid me to answer %WC%.",
+        "Bada bada bada bada... %WC%!",
+        "You think you've got what it takes to wield the %WC%?"
       ]
     }
   ],

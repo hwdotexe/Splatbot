@@ -40,7 +40,7 @@ public class Language {
     public String getMsg(LanguageKeys key) {
         LanguageMessage message = getLanguageMessage(key);
 
-        if(message != null) {
+        if (message != null) {
             String[] messageArray = message.getValues();
 
             if (messageArray.length > 1) {
@@ -69,7 +69,7 @@ public class Language {
     public String getError(ErrorKeys key) {
         LanguageError error = getLanguageError(key);
 
-        if(error != null) {
+        if (error != null) {
             String[] messageArray = error.getValues();
 
             if (messageArray.length > 1) {
@@ -83,7 +83,7 @@ public class Language {
     }
 
     public LanguageMessage getLanguageMessage(LanguageKeys key) {
-        for(LanguageMessage message : messages) {
+        for (LanguageMessage message : messages) {
             if (message.getKey() == key) {
                 return message;
             }
@@ -93,7 +93,7 @@ public class Language {
     }
 
     public LanguageError getLanguageError(ErrorKeys key) {
-        for(LanguageError error : errors) {
+        for (LanguageError error : errors) {
             if (error.getKey() == key) {
                 return error;
             }
@@ -132,7 +132,7 @@ public class Language {
         errors.add(new LanguageError(ErrorKeys.SETTING_VALUE_INVALID, new String[]{"The value you provided is invalid. Please try again."}));
         errors.add(new LanguageError(ErrorKeys.WRONG_USAGE, new String[]{"The command syntax you used is incorrect."}));
 
-        messages.add(new LanguageMessage(LanguageKeys.DRAW_PROMPT_CHARACTER_ACTION, new String[]{"threatening to eat "+wildcard, "after breaking "+wildcard, "crying about "+wildcard, "on a date with "+wildcard, "getting bullied by "+wildcard, "debating "+wildcard+" strategies", "holding some "+wildcard, "collecting "+wildcard, "swimming in a pool of "+wildcard}));
+        messages.add(new LanguageMessage(LanguageKeys.DRAW_PROMPT_CHARACTER_ACTION, new String[]{"threatening to eat " + wildcard, "after breaking " + wildcard, "crying about " + wildcard, "on a date with " + wildcard, "getting bullied by " + wildcard, "debating " + wildcard + " strategies", "holding some " + wildcard, "collecting " + wildcard, "swimming in a pool of " + wildcard}));
         messages.add(new LanguageMessage(LanguageKeys.DRAW_PROMPT_CHARACTER_NAME, new String[]{"Reif", "Camden", "Clare", "Delta", "Pike", "Brooke", "Finn", "Shiver", "Frye", "Big Man", "Little Buddy", "`FamiliarNameMissing`", "Salina", "Pearl", "A Squizzard", "Cap'n Cuttlefish", "Marina", "Sheldon", "Judd", "Callie", "Marie"}));
         messages.add(new LanguageMessage(LanguageKeys.DRAW_PROMPT_ENEMIES, new String[]{"a Smallfry", "a Cohock", "a Flyfish", "DJ Octavio", "a Chum", "a bad teammate", "a noob", "Mr. Grizz", "an Octoling", "an Octotrooper", "a Fishstick", "a Steel Eel", "a Slammin' Lid"}));
         messages.add(new LanguageMessage(LanguageKeys.DRAW_PROMPT_NOUNS, new String[]{"salt", "water", "paint", "salmon egg", "sea snail", "smoothie", "table turf card", "locker", "communication error", "Splatfest tee", "lobby art"}));
@@ -140,5 +140,6 @@ public class Language {
         messages.add(new LanguageMessage(LanguageKeys.GENERIC_SUCCESS, new String[]{"Success!"}));
         messages.add(new LanguageMessage(LanguageKeys.SETTING_LIST_TITLE, new String[]{"Available settings"}));
         messages.add(new LanguageMessage(LanguageKeys.SETTING_UPDATED_SUCCESS, new String[]{"Setting was updated successfully!"}));
+        messages.add(new LanguageMessage(LanguageKeys.WEAPON_SUGGESTIONS, new String[]{"I'm feeling like recommending the " + wildcard + " today.", "You could use more practice with the " + wildcard + ".", "Want to make it rain (with salt)? Try the " + wildcard + "", "Use the " + wildcard + ". I dare you.", "Callie would tell you that you suck at the " + wildcard + ".", "" + wildcard + " - The Great Callie has spoken!", "" + wildcard + ". Hands down.", "Nothing's fresher than the " + wildcard + "", "" + wildcard + " is love, " + wildcard + " is life.", "I mean, you could try the " + wildcard + ", but I'd be careful...", "Sheldon paid me to answer " + wildcard + ".", "Bada bada bada bada... " + wildcard + "!", "You think you've got what it takes to wield the " + wildcard + "?"}));
     }
 }
