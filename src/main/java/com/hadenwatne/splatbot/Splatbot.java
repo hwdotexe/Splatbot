@@ -5,9 +5,12 @@ import com.hadenwatne.splatbot.listeners.ChatListener;
 import com.hadenwatne.splatbot.listeners.FirstJoinListener;
 import com.hadenwatne.splatbot.listeners.SlashCommandListener;
 import com.hadenwatne.splatbot.models.data.GiantSquid;
+import com.hadenwatne.splatbot.models.data.stages.StageData;
 import com.hadenwatne.splatbot.services.LanguageService;
 import com.hadenwatne.splatbot.services.LoggingService;
+import com.hadenwatne.splatbot.services.RandomService;
 import com.hadenwatne.splatbot.services.StorageService;
+import com.hadenwatne.splatbot.tasks.FetchData;
 import com.hadenwatne.splatbot.tasks.SaveDataTask;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -21,12 +24,22 @@ public class Splatbot {
     private String botAvatarUrl;
     private CommandHandler commandHandler;
     private final StorageService storageService;
+    private StageData stageData;
 
     public Splatbot() {
+        RandomService.Init();
         LoggingService.Init();
 
         this.languageService = new LanguageService();
         this.storageService = new StorageService();
+    }
+
+    public StageData getStageData() {
+        return stageData;
+    }
+
+    public void setStageData(StageData stageData) {
+        this.stageData = stageData;
     }
 
     public String getBotName() {
@@ -63,6 +76,7 @@ public class Splatbot {
 
         // Start automated tasks.
         new SaveDataTask();
+        new FetchData();
 
         // Set the bot name and avatar URL.
         this.botName = getJDA().getSelfUser().getName();

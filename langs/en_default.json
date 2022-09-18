@@ -1,0 +1,99 @@
+{
+  "messages": [
+    {
+      "key": "GENERIC_SUCCESS",
+      "values": [
+        "Success!"
+      ]
+    },
+    {
+      "key": "SETTING_LIST_TITLE",
+      "values": [
+        "Available settings"
+      ]
+    },
+    {
+      "key": "SETTING_UPDATED_SUCCESS",
+      "values": [
+        "Setting was updated successfully!"
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "key": "BOT_ERROR",
+      "values": [
+        "There was an internal error, and your request did not complete."
+      ]
+    },
+    {
+      "key": "CANNOT_DELETE",
+      "values": [
+        "Sorry, I can't let you delete that. It's very precious to me."
+      ]
+    },
+    {
+      "key": "CHANNEL_NOT_FOUND",
+      "values": [
+        "I can't find the correct channel for that."
+      ]
+    },
+    {
+      "key": "COMMAND_NOT_FOUND",
+      "values": [
+        "That command hasn't been invented yet!"
+      ]
+    },
+    {
+      "key": "HEY_THERE",
+      "values": [
+        "Hey there! Try using `%WC% help`!"
+      ]
+    },
+    {
+      "key": "NOT_FOUND",
+      "values": [
+        "There were no results."
+      ]
+    },
+    {
+      "key": "NO_PERMISSION_BOT",
+      "values": [
+        "I don't have permission to do that on this server."
+      ]
+    },
+    {
+      "key": "NO_PERMISSION_USER",
+      "values": [
+        "I'm afraid I can't let you do that."
+      ]
+    },
+    {
+      "key": "PAGE_NOT_FOUND",
+      "values": [
+        "The page you requested is empty or does not exist."
+      ]
+    },
+    {
+      "key": "RESERVED_WORD",
+      "values": [
+        "It looks like you tried to use a reserved word. Try a different one!"
+      ]
+    },
+    {
+      "key": "SETTING_VALUE_INVALID",
+      "values": [
+        "The value you provided is invalid. Please try again."
+      ]
+    },
+    {
+      "key": "WRONG_USAGE",
+      "values": [
+        "The command syntax you used is incorrect."
+      ]
+    }
+  ],
+  "wildcard": "%WC%",
+  "linebreak": "%BR%",
+  "langName": "en_default"
+}
