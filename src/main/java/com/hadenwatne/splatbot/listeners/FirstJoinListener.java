@@ -20,7 +20,7 @@ public class FirstJoinListener extends ListenerAdapter {
 	final EmbedBuilder welcomeMessage;
 
 	public FirstJoinListener() {
-		EmbedBuilder embedBuilder = EmbedFactory.GetEmbed(EmbedType.INFO, "Welcome");
+		EmbedBuilder embedBuilder = EmbedFactory.GetEmbed(EmbedType.TURFWAR, "Welcome");
 		String name = App.Splatbot.getBotName();
 
 		embedBuilder.setThumbnail(App.Splatbot.getBotAvatarUrl());

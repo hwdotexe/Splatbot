@@ -4,7 +4,7 @@ import com.hadenwatne.splatbot.commandbuilder.CommandBuilder;
 import com.hadenwatne.splatbot.commandbuilder.CommandParameter;
 import com.hadenwatne.splatbot.commandbuilder.CommandStructure;
 import com.hadenwatne.splatbot.commandbuilder.SubCommandGroup;
-import com.hadenwatne.splatbot.commands.Command;
+import com.hadenwatne.splatbot.commands.*;
 import com.hadenwatne.splatbot.enums.EmbedType;
 import com.hadenwatne.splatbot.enums.ErrorKeys;
 import com.hadenwatne.splatbot.enums.LogType;
@@ -31,7 +31,10 @@ public class CommandHandler {
 
 		commands = new ArrayList<>();
 
-//		commands.add(new Blame());
+		commands.add(new Anarchy());
+		commands.add(new Help());
+		commands.add(new SalmonRun());
+		commands.add(new TurfWar());
 
 		// Send Discord the syntax we plan to use for slash commands.
 		updateSlashCommands();

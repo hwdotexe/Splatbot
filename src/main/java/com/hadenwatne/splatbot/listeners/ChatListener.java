@@ -43,7 +43,7 @@ public class ChatListener extends ListenerAdapter {
 					Language language = App.Splatbot.getLanguageService().getLangFor(squid);
 
 					if (messageText.trim().length() == triggerUsed.length()) {
-						EmbedBuilder embed = EmbedFactory.GetEmbed(EmbedType.INFO)
+						EmbedBuilder embed = EmbedFactory.GetEmbed(EmbedType.TURFWAR)
 								.setDescription(language.getError(ErrorKeys.HEY_THERE, new String[]{App.Splatbot.getBotName()}));
 
 						MessageService.ReplyToMessage(message, embed, false);
