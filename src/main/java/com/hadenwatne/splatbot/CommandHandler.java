@@ -34,6 +34,7 @@ public class CommandHandler {
 		commands.add(new Anarchy());
 		commands.add(new Help());
 		commands.add(new SalmonRun());
+		commands.add(new Timezone());
 		commands.add(new TurfWar());
 
 		// Send Discord the syntax we plan to use for slash commands.

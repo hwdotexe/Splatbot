@@ -28,10 +28,8 @@
         "Frye",
         "Big Man",
         "Little Buddy",
-        "`FamiliarNameMissing`",
         "Salina",
         "Pearl",
-        "A Squizzard",
         "Cap'n Cuttlefish",
         "Marina",
         "Sheldon",
@@ -107,6 +105,12 @@
       "key": "SETTING_UPDATED_SUCCESS",
       "values": [
         "Setting was updated successfully!"
+      ]
+    },
+    {
+      "key": "TIMEZONE_SET",
+      "values": [
+        "Your timezone is now `%WC%`! Commands you run will be shown in this timezone."
       ]
     },
     {

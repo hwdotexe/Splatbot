@@ -13,10 +13,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class TurfWar extends Command {
     public TurfWar() {
@@ -49,9 +46,19 @@ public class TurfWar extends Command {
                     continue;
                 }
 
+                // Timezone settings.
+                String timezone = "America/Denver";
+
+                if(executingCommand.getServer() != null) {
+                    timezone = executingCommand.getSquid().getUserTimezones().getOrDefault(executingCommand.getAuthorUser().getIdLong(), timezone);
+                }
+
+                start.setTimeZone(TimeZone.getTimeZone(timezone));
+                end.setTimeZone(TimeZone.getTimeZone(timezone));
+
                 String startTime = (start.get(Calendar.HOUR) == 0 ? 12 : start.get(Calendar.HOUR)) + ":" + start.get(Calendar.MINUTE) + "0" + (start.get(Calendar.AM_PM) == Calendar.AM ? "a" : "p");
                 String endTime = (end.get(Calendar.HOUR) == 0 ? 12 : end.get(Calendar.HOUR)) + ":" + end.get(Calendar.MINUTE) + "0" + (end.get(Calendar.AM_PM) == Calendar.AM ? "a" : "p");
-                String timeHeader = (start.get(Calendar.MONTH)+1) + "/" + start.get(Calendar.DAY_OF_MONTH) + " " + startTime + " — " + (end.get(Calendar.MONTH)+1) + "/" + end.get(Calendar.DAY_OF_MONTH) + " " + endTime;
+                String timeHeader = (start.get(Calendar.MONTH)+1) + "/" + start.get(Calendar.DAY_OF_MONTH) + " " + startTime + " — " + (end.get(Calendar.MONTH)+1) + "/" + end.get(Calendar.DAY_OF_MONTH) + " " + endTime + " (" + start.getTimeZone().getDisplayName(start.getTimeZone().inDaylightTime(start.getTime()), TimeZone.SHORT) + ")";
                 StringBuilder stages = new StringBuilder();
 
                 for(String s : stage.getStages()) {
@@ -71,7 +78,6 @@ public class TurfWar extends Command {
 
             builder.setDescription("Here are the deets for upcoming Turf War battles!");
             builder.setThumbnail("https://i.imgur.com/2SnrhMv.png");
-            // https://splatoon3.ink/assets/little-buddy.445c3c88.png for Salmon Run
 
             for(MessageEmbed.Field f : fields) {
                 builder.addField(f);

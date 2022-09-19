@@ -27,8 +27,8 @@ public class SaveDataTask extends TimerTask {
 		
     	c.setTime(new Date());
     	
-    	// Run this now, and then again every 5 hours
-		t.schedule(this, c.getTime(), 30000000);
+    	// Run this now, and then again every 3 hours
+		t.schedule(this, c.getTime(), 18000000);
 	}
 	
 	public void run() {

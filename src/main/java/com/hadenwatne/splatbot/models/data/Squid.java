@@ -11,13 +11,23 @@ public class Squid {
 	private final String guildID;
 	private final List<BotSetting> settings;
 	private boolean sentWelcome;
+	private HashMap<Long, String> userTimezones;
 
 	public Squid(String gid) {
 		guildID = gid;
 		settings = new ArrayList<>();
 		sentWelcome = false;
+		userTimezones = new HashMap<>();
 		
 		loadFirstRunDefaults();
+	}
+
+	public HashMap<Long, String> getUserTimezones() {
+		if(userTimezones == null) {
+			userTimezones = new HashMap<>();
+		}
+
+		return userTimezones;
 	}
 
 	public boolean didSendWelcome(){
