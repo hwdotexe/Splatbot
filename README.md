@@ -1,4 +1,4 @@
-[![Build](https://github.com/hwdotexe/Splatbot/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/hwdotexe/Splatbot/actions/workflows/maven.yml)
+[![Build](https://github.com/hwdotexe/Splatbot/actions/workflows/maven.yml/badge.svg)](https://github.com/hwdotexe/Splatbot/actions/workflows/maven.yml)
 
 # Woomy!
 Hi, I'm Splatbot! Your personal Splatoon 3 expert!
