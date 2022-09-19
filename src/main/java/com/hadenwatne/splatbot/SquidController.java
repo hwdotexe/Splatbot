@@ -20,9 +20,9 @@ public class SquidController {
 
 	private GiantSquid giantSquid;
 
-	private final String BRAIN_PARENT_DIRECTORY = "squids";
-	private final String BRAIN_SERVER_DIRECTORY = BRAIN_PARENT_DIRECTORY + File.separator + "servers";
-	private final String MOTHER_BRAIN_FILE = "giantSquid.json";
+	private final String SQUID_PARENT_DIRECTORY = "squids";
+	private final String SQUID_SERVER_DIRECTORY = SQUID_PARENT_DIRECTORY + File.separator + "servers";
+	private final String GIANT_SQUID_FILE = "giantSquid.json";
 
 	public SquidController() {
 		gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
@@ -32,7 +32,7 @@ public class SquidController {
 	}
 
 	public void loadMotherBrain() {
-		File motherBrainFile = new File(BRAIN_PARENT_DIRECTORY + File.separator + MOTHER_BRAIN_FILE);
+		File motherBrainFile = new File(SQUID_PARENT_DIRECTORY + File.separator + GIANT_SQUID_FILE);
 		String motherBrainData = FileService.LoadFileAsString(motherBrainFile);
 
 		if (motherBrainData.length() > 0) {
@@ -47,7 +47,7 @@ public class SquidController {
 
 	public void loadServerBrains(){
 		// Load server settings files.
-		File[] brainFiles = FileService.ListFilesInDirectory(BRAIN_SERVER_DIRECTORY, new JSONFileFilter());
+		File[] brainFiles = FileService.ListFilesInDirectory(SQUID_SERVER_DIRECTORY, new JSONFileFilter());
 
 		for(File brainFile : brainFiles) {
 			Squid squid = gson.fromJson(FileService.LoadFileAsString(brainFile), Squid.class);
@@ -125,10 +125,10 @@ public class SquidController {
 	}
 
 	public void saveGiantSquid() {
-		FileService.SaveBytesToFile(BRAIN_PARENT_DIRECTORY, MOTHER_BRAIN_FILE , gson.toJson(giantSquid).getBytes());
+		FileService.SaveBytesToFile(SQUID_PARENT_DIRECTORY, GIANT_SQUID_FILE, gson.toJson(giantSquid).getBytes());
 	}
 
 	public void saveSquid(Squid s) {
-		FileService.SaveBytesToFile(BRAIN_SERVER_DIRECTORY, s.getGuildID()+ ".json", gson.toJson(s).getBytes());
+		FileService.SaveBytesToFile(SQUID_SERVER_DIRECTORY, s.getGuildID()+ ".json", gson.toJson(s).getBytes());
 	}
 }

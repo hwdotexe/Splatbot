@@ -26,9 +26,7 @@ public class FirstJoinListener extends ListenerAdapter {
 		embedBuilder.setThumbnail(App.Splatbot.getBotAvatarUrl());
 		embedBuilder.setDescription("Woomy! "+name+" has joined the server!");
 
-		embedBuilder.addField(":bulb: Get Started", "To view a list of commands and general information, use `"+name+" help`.\n" +
-				"\n" +
-				"• Adjust settings and permissions with `"+name+" modify`", false);
+		embedBuilder.addField(":bulb: Get Started", "To view a list of commands and general information, use `"+name+" help`.", false);
 
 		welcomeMessage = embedBuilder;
 	}
@@ -37,12 +35,11 @@ public class FirstJoinListener extends ListenerAdapter {
 	public void onGuildJoin(GuildJoinEvent e) {
 		Squid squid = App.Splatbot.getStorageService().getSquid(e.getGuild().getId());
 
-		// Check a setting in the Brain, since this event can fire accidentally if Discord screws up.
+		// Check a setting in the squid, since this event can fire accidentally if Discord screws up.
 		if(!squid.didSendWelcome()){
 			TextChannel defaultChannel = e.getGuild().getSystemChannel();
 
 			sendWelcomeMessage(squid, defaultChannel);
-			setDefaultChannelSettings(squid, defaultChannel);
 		}
 	}
 
@@ -54,13 +51,5 @@ public class FirstJoinListener extends ListenerAdapter {
 		}
 
 		squid.setSentWelcome();
-	}
-
-	private void setDefaultChannelSettings(Squid squid, BaseGuildMessageChannel channel) {
-		if(channel != null){
-			BotSetting pin = squid.getSettingFor(BotSettingName.PIN_CHANNEL);
-
-			pin.setValue(channel.getName(), squid);
-		}
 	}
 }

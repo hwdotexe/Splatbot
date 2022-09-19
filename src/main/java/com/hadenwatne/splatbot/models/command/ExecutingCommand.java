@@ -25,9 +25,9 @@ public class ExecutingCommand {
     private InteractionHook hook;
     private Message message;
 
-    public ExecutingCommand(Language language, @Nullable Squid brain) {
+    public ExecutingCommand(Language language, @Nullable Squid squid) {
         this.language = language;
-        this.squid = brain;
+        this.squid = squid;
     }
 
     public String getCommandName() {

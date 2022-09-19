@@ -51,7 +51,7 @@ public class SaveDataTask extends TimerTask {
 	}
 
 	private void updateRandomSeed() {
-		String resp = HTTPService.SendHTTPReq(HTTPVerb.GET, "https://www.random.org/integers/?num=2&min=9999999&max=99999999&col=1&base=10&format=plain&rnd=new", null);
+		String resp = HTTPService.SendHTTPRequest(HTTPVerb.GET, "https://www.random.org/integers/?num=2&min=9999999&max=99999999&col=1&base=10&format=plain&rnd=new", null);
 
 		if(resp != null) {
 			resp = resp.trim();

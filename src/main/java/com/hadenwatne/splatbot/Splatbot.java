@@ -5,17 +5,21 @@ import com.hadenwatne.splatbot.listeners.ChatListener;
 import com.hadenwatne.splatbot.listeners.FirstJoinListener;
 import com.hadenwatne.splatbot.listeners.SlashCommandListener;
 import com.hadenwatne.splatbot.models.data.GiantSquid;
+import com.hadenwatne.splatbot.models.data.Weapon;
 import com.hadenwatne.splatbot.models.data.stages.StageData;
 import com.hadenwatne.splatbot.services.LanguageService;
 import com.hadenwatne.splatbot.services.LoggingService;
 import com.hadenwatne.splatbot.services.RandomService;
 import com.hadenwatne.splatbot.services.StorageService;
-import com.hadenwatne.splatbot.tasks.FetchData;
+import com.hadenwatne.splatbot.tasks.FetchStageData;
+import com.hadenwatne.splatbot.tasks.FetchWeaponData;
 import com.hadenwatne.splatbot.tasks.SaveDataTask;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 
 import javax.security.auth.login.LoginException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Splatbot {
     private JDA jda;
@@ -25,6 +29,7 @@ public class Splatbot {
     private CommandHandler commandHandler;
     private final StorageService storageService;
     private StageData stageData;
+    private List<Weapon> weapons;
 
     public Splatbot() {
         RandomService.Init();
@@ -32,10 +37,20 @@ public class Splatbot {
 
         this.languageService = new LanguageService();
         this.storageService = new StorageService();
+
+        this.weapons = new ArrayList<>();
+    }
+
+    public List<Weapon> getWeapons() {
+        return weapons;
     }
 
     public StageData getStageData() {
         return stageData;
+    }
+
+    public void setWeapons(List<Weapon> weapons) {
+        this.weapons = weapons;
     }
 
     public void setStageData(StageData stageData) {
@@ -71,12 +86,13 @@ public class Splatbot {
 
         configureJDA(isDebug ? giantSquid.getBotAPIKeySecondary() : giantSquid.getBotAPIKey(), giantSquid);
 
-        // Load Brain objects into memory.
+        // Load squid objects into memory.
         this.storageService.getSquidController().loadServerBrains();
 
         // Start automated tasks.
         new SaveDataTask();
-        new FetchData();
+        new FetchStageData();
+        new FetchWeaponData();
 
         // Set the bot name and avatar URL.
         this.botName = getJDA().getSelfUser().getName();

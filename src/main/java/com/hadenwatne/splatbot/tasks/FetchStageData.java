@@ -3,31 +3,25 @@ package com.hadenwatne.splatbot.tasks;
 import com.hadenwatne.splatbot.App;
 import com.hadenwatne.splatbot.enums.HTTPVerb;
 import com.hadenwatne.splatbot.enums.LogType;
-import com.hadenwatne.splatbot.models.data.GiantSquid;
-import com.hadenwatne.splatbot.models.data.Squid;
 import com.hadenwatne.splatbot.models.data.stages.*;
 import com.hadenwatne.splatbot.services.HTTPService;
 import com.hadenwatne.splatbot.services.LoggingService;
-import com.hadenwatne.splatbot.services.RandomService;
-import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Activity.ActivityType;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class FetchData extends TimerTask {
+public class FetchStageData extends TimerTask {
 	Timer t;
 
-	public FetchData() {
+	public FetchStageData() {
 		run();
 	}
 
 	public void run() {
-		String result = HTTPService.SendHTTPReq(HTTPVerb.GET, "https://splatoon3.ink/data/schedules.json", null);
+		String result = HTTPService.SendHTTPRequest(HTTPVerb.GET, "https://splatoon3.ink/data/schedules.json", null);
 		JSONObject json = new JSONObject(result).getJSONObject("data");
 
 		JSONObject turfWarJson = json.getJSONObject("regularSchedules");
@@ -116,6 +110,6 @@ public class FetchData extends TimerTask {
 			LoggingService.LogException(ex);
 		}
 
-		LoggingService.Log(LogType.SYSTEM, "Data refresh task ran");
+		LoggingService.Log(LogType.SYSTEM, "Stage data refresh task ran");
 	}
 }

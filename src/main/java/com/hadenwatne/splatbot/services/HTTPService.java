@@ -21,7 +21,7 @@ public class HTTPService {
      * @param body The JSON body of this request, or null if none.
      * @return A string response, if received.
      */
-    public static String SendHTTPReq(HTTPVerb v, String fqurl, JSONObject body) {
+    public static String SendHTTPRequest(HTTPVerb v, String fqurl, JSONObject body) {
         try {
             URL url = new URL(fqurl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
