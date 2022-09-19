@@ -33,7 +33,8 @@ public class Timezone extends Command {
         return CommandBuilder.Create("timezone", "Set your preferred timezone for Splatbot data!")
                 .addAlias("tz")
                 .addParameters(new CommandParameter("timezone", "The timezone to use", ParameterType.SELECTION)
-                        .addSelectionOptions("America/Los_Angeles", "America/Denver", "America/Chicago", "America/New_York"))
+                        .addSelectionOptions("America/Los_Angeles", "America/Denver", "America/Chicago", "America/New_York")
+                        .setExample("America/New_York"))
                 .build();
     }
 
