@@ -5,10 +5,12 @@ import com.hadenwatne.splatbot.commandbuilder.CommandBuilder;
 import com.hadenwatne.splatbot.commandbuilder.CommandStructure;
 import com.hadenwatne.splatbot.enums.EmbedType;
 import com.hadenwatne.splatbot.enums.ErrorKeys;
+import com.hadenwatne.splatbot.enums.LanguageKeys;
 import com.hadenwatne.splatbot.models.command.ExecutingCommand;
 import com.hadenwatne.splatbot.models.data.stages.RankedMode;
 import com.hadenwatne.splatbot.models.data.stages.RankedStages;
 import com.hadenwatne.splatbot.models.data.stages.TurfWarStages;
+import com.hadenwatne.splatbot.services.DataService;
 import com.hadenwatne.splatbot.services.LoggingService;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -49,7 +51,7 @@ public class Anarchy extends Command {
                 }
 
                 // Timezone settings.
-                String timezone = "America/Denver";
+                String timezone = "America/New_York";
 
                 if(executingCommand.getServer() != null) {
                     timezone = executingCommand.getSquid().getUserTimezones().getOrDefault(executingCommand.getAuthorUser().getIdLong(), timezone);
@@ -58,10 +60,7 @@ public class Anarchy extends Command {
                 start.setTimeZone(TimeZone.getTimeZone(timezone));
                 end.setTimeZone(TimeZone.getTimeZone(timezone));
 
-                String startTime = (start.get(Calendar.HOUR) == 0 ? 12 : start.get(Calendar.HOUR)) + ":" + start.get(Calendar.MINUTE) + "0" + (start.get(Calendar.AM_PM) == Calendar.AM ? "a" : "p");
-                String endTime = (end.get(Calendar.HOUR) == 0 ? 12 : end.get(Calendar.HOUR)) + ":" + end.get(Calendar.MINUTE) + "0" + (end.get(Calendar.AM_PM) == Calendar.AM ? "a" : "p");
-                String timeHeader = (start.get(Calendar.MONTH)+1) + "/" + start.get(Calendar.DAY_OF_MONTH) + " " + startTime + " — " + (end.get(Calendar.MONTH)+1) + "/" + end.get(Calendar.DAY_OF_MONTH) + " " + endTime + " (" + start.getTimeZone().getDisplayName(start.getTimeZone().inDaylightTime(start.getTime()), TimeZone.SHORT) + ")";
-
+                String timeHeader = DataService.BuildTimeWindowString(start,end);
                 StringBuilder modes = new StringBuilder();
 
                 for(RankedMode mode : stage.getModes()) {
@@ -94,9 +93,8 @@ public class Anarchy extends Command {
 
             EmbedBuilder builder = response(EmbedType.RANKED);
 
-            builder.setDescription("Here are the deets for upcoming Anarchy battles!");
+            builder.setDescription(executingCommand.getLanguage().getMsg(LanguageKeys.ANARCHY_HEADING));
             builder.setThumbnail("https://i.imgur.com/4lUWWu7.png");
-            // https://splatoon3.ink/assets/little-buddy.445c3c88.png for Salmon Run
 
             for(MessageEmbed.Field f : fields) {
                 builder.addField(f);

@@ -128,7 +128,7 @@ public class SquidController {
 		FileService.SaveBytesToFile(BRAIN_PARENT_DIRECTORY, MOTHER_BRAIN_FILE , gson.toJson(giantSquid).getBytes());
 	}
 
-	public void saveSquid(Squid brain) {
-		FileService.SaveBytesToFile(BRAIN_SERVER_DIRECTORY, brain.getGuildID()+ ".json", gson.toJson(brain).getBytes());
+	public void saveSquid(Squid s) {
+		FileService.SaveBytesToFile(BRAIN_SERVER_DIRECTORY, s.getGuildID()+ ".json", gson.toJson(s).getBytes());
 	}
 }

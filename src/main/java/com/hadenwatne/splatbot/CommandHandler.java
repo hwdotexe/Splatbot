@@ -32,6 +32,7 @@ public class CommandHandler {
 		commands = new ArrayList<>();
 
 		commands.add(new Anarchy());
+		commands.add(new Dev());
 		commands.add(new Help());
 		commands.add(new SalmonRun());
 		commands.add(new Timezone());

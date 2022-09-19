@@ -1,6 +1,12 @@
 {
   "messages": [
     {
+      "key": "ANARCHY_HEADING",
+      "values": [
+        "Ready to get to X Rank? Here's what you gotta do!"
+      ]
+    },
+    {
       "key": "DRAW_PROMPT_CHARACTER_ACTION",
       "values": [
         "threatening to eat %WC%",
@@ -96,6 +102,12 @@
       ]
     },
     {
+      "key": "SALMON_RUN_HEADING",
+      "values": [
+        "Mr. Grizz needs Salmon Eggs! These are your options."
+      ]
+    },
+    {
       "key": "SETTING_LIST_TITLE",
       "values": [
         "Available settings"
@@ -111,6 +123,12 @@
       "key": "TIMEZONE_SET",
       "values": [
         "Your timezone is now `%WC%`! Commands you run will be shown in this timezone."
+      ]
+    },
+    {
+      "key": "TURF_WAR_HEADING",
+      "values": [
+        "Here are the deets for Turf War battles!"
       ]
     },
     {
