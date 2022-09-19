@@ -14,10 +14,14 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class FetchStageData extends TimerTask {
-	Timer t;
-
 	public FetchStageData() {
-		run();
+		Calendar c = Calendar.getInstance();
+		Timer t = new Timer();
+
+		c.setTime(new Date());
+
+		// Run this now, and then again every 20 hours
+		t.schedule(this, c.getTime(), 20 * (60*1000));
 	}
 
 	public void run() {
@@ -92,23 +96,6 @@ public class FetchStageData extends TimerTask {
 		}
 
 		App.Splatbot.setStageData(stageData);
-
-		try {
-			String nextDate = stageData.getTurfWar().get(5).getEndTime();
-			DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
-			Date parsed = sdf.parse(nextDate);
-
-			t = new Timer();
-			t.schedule(this, parsed);
-
-			if(App.IsDebug) {
-				LoggingService.Log(LogType.SYSTEM, "date string is " + nextDate);
-				LoggingService.Log(LogType.SYSTEM, "Scheduling data refresh at " + parsed.toString());
-				LoggingService.Log(LogType.SYSTEM, new JSONObject(stageData).toString());
-			}
-		} catch (Exception ex) {
-			LoggingService.LogException(ex);
-		}
 
 		LoggingService.Log(LogType.SYSTEM, "Stage data refresh task ran");
 	}
