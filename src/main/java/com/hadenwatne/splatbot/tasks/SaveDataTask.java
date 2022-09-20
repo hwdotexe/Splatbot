@@ -24,11 +24,11 @@ public class SaveDataTask extends TimerTask {
 	public SaveDataTask() {
 		Calendar c = Calendar.getInstance();
 		Timer t = new Timer();
-		
-    	c.setTime(new Date());
-    	
-    	// Run this now, and then again every 3 hours
-		t.schedule(this, c.getTime(), 18000000);
+
+		c.setTime(new Date());
+
+		// Run this now, and then again every 3 hours
+		t.schedule(this, c.getTime(), 3 * (60 * 60 * 1000));
 	}
 	
 	public void run() {
