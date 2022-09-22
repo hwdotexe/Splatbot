@@ -20,8 +20,8 @@ public class FetchStageData extends TimerTask {
 
 		c.setTime(new Date());
 
-		// Run this now, and then again every 20 hours
-		t.schedule(this, c.getTime(), 20 * (60 * 60 * 1000));
+		// Run this now, and then again every 15 hours
+		t.schedule(this, c.getTime(), 15 * (60 * 60 * 1000));
 	}
 
 	public void run() {
