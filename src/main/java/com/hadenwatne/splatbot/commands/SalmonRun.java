@@ -33,7 +33,7 @@ public class SalmonRun extends Command {
 
     @Override
     public EmbedBuilder run(ExecutingCommand executingCommand) {
-        List<SalmonRunStages> salmonRun = App.Splatbot.getStageData().getSalmonRun().subList(0, 5);
+        List<SalmonRunStages> salmonRun = App.Splatbot.getStageData().getSalmonRun();
         List<MessageEmbed.Field> fields = new ArrayList<>();
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
 
@@ -90,8 +90,8 @@ public class SalmonRun extends Command {
             builder.setDescription(executingCommand.getLanguage().getMsg(LanguageKeys.SALMON_RUN_HEADING));
             builder.setThumbnail("https://splatoon3.ink/assets/little-buddy.445c3c88.png");
 
-            for(MessageEmbed.Field f : fields) {
-                builder.addField(f);
+            for(int i=0; i<Math.min(5, fields.size()); i++) {
+                builder.addField(fields.get(i));
             }
 
             return builder;

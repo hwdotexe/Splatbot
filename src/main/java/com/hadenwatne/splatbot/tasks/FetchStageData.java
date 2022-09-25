@@ -21,7 +21,7 @@ public class FetchStageData extends TimerTask {
 		c.setTime(new Date());
 
 		// Run this now, and then again every 15 hours
-		t.schedule(this, c.getTime(), 15 * (60 * 60 * 1000));
+		t.schedule(this, c.getTime(), 12 * (60 * 60 * 1000));
 	}
 
 	public void run() {
@@ -42,37 +42,81 @@ public class FetchStageData extends TimerTask {
 		for (int i = 0; i < turfWarRotation.length(); i++) {
 			JSONObject turfWarObj = turfWarRotation.getJSONObject(i);
 			TurfWarStages turfWarStages = new TurfWarStages(turfWarObj.getString("startTime"), turfWarObj.getString("endTime"));
-			JSONArray stageList = turfWarObj.getJSONObject("regularMatchSetting").getJSONArray("vsStages");
 
-			for (int s = 0; s < stageList.length(); s++) {
-				turfWarStages.getStages().add(stageList.getJSONObject(s).getString("name"));
+			if (!turfWarObj.isNull("festMatchSetting")) {
+				// Splatfest (TODO)
+				/*
+				 "festSchedules": {
+				  "nodes": [
+					{
+					  "startTime": "2022-09-25T20:00:00Z",
+					  "endTime": "2022-09-25T22:00:00Z",
+					  "festMatchSetting": {
+						"__isVsSetting": "FestMatchSetting",
+						"__typename": "FestMatchSetting",
+						"vsStages": [
+						  {
+							"id": "VnNTdGFnZS0xMA==",
+							"vsStageId": 10,
+							"name": "Hammerhead Bridge",
+							"image": {
+							  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/1db8ab338b64b464df50e7f9e270e59423ff8caac6f09679a24f1b7acf3a82f3_1.png"
+							}
+						  },
+						  {
+							"id": "VnNTdGFnZS0xNg==",
+							"vsStageId": 16,
+							"name": "Wahoo World",
+							"image": {
+							  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/61ea801fa4ed32360dcaf83986222ded46a72dbf56194acc6d0cf4659a92ba85_1.png"
+							}
+						  }
+						],
+						"vsRule": {
+						  "name": "Turf War",
+						  "rule": "TURF_WAR",
+						  "id": "VnNSdWxlLTA="
+						}
+					  }
+					},
+				 */
+			} else {
+				JSONArray stageList = turfWarObj.getJSONObject("regularMatchSetting").getJSONArray("vsStages");
+
+				for (int s = 0; s < stageList.length(); s++) {
+					turfWarStages.getStages().add(stageList.getJSONObject(s).getString("name"));
+				}
+
+				stageData.getTurfWar().add(turfWarStages);
 			}
-
-			stageData.getTurfWar().add(turfWarStages);
 		}
 
 		// Ranked data
 		for (int i = 0; i < rankedRotation.length(); i++) {
 			JSONObject rankedObj = rankedRotation.getJSONObject(i);
-			JSONArray rankedModes = rankedObj.getJSONArray("bankaraMatchSettings");
 
-			List<RankedMode> modes = new ArrayList<>();
+			if (!rankedObj.isNull("festMatchSetting")) {
+				// Splatfest (TODO)
+			} else {
+				JSONArray rankedModes = rankedObj.getJSONArray("bankaraMatchSettings");
+				List<RankedMode> modes = new ArrayList<>();
 
-			for (int m = 0; m < rankedModes.length(); m++) {
-				JSONObject rObj = rankedModes.getJSONObject(m);
-				JSONArray rObjStages = rObj.getJSONArray("vsStages");
-				RankedMode rankedMode = new RankedMode(rObj.getJSONObject("vsRule").getString("name"));
+				for (int m = 0; m < rankedModes.length(); m++) {
+					JSONObject rObj = rankedModes.getJSONObject(m);
+					JSONArray rObjStages = rObj.getJSONArray("vsStages");
+					RankedMode rankedMode = new RankedMode(rObj.getJSONObject("vsRule").getString("name"));
 
-				for (int s = 0; s < rObjStages.length(); s++) {
-					rankedMode.getStages().add(rObjStages.getJSONObject(s).getString("name"));
+					for (int s = 0; s < rObjStages.length(); s++) {
+						rankedMode.getStages().add(rObjStages.getJSONObject(s).getString("name"));
+					}
+
+					modes.add(rankedMode);
 				}
 
-				modes.add(rankedMode);
+				RankedStages rankedStages = new RankedStages(rankedObj.getString("startTime"), rankedObj.getString("endTime"), modes);
+
+				stageData.getRanked().add(rankedStages);
 			}
-
-			RankedStages rankedStages = new RankedStages(rankedObj.getString("startTime"), rankedObj.getString("endTime"), modes);
-
-			stageData.getRanked().add(rankedStages);
 		}
 
 		// Salmon Run data

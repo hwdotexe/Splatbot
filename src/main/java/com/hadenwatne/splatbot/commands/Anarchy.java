@@ -33,7 +33,7 @@ public class Anarchy extends Command {
 
     @Override
     public EmbedBuilder run(ExecutingCommand executingCommand) {
-        List<RankedStages> ranked = App.Splatbot.getStageData().getRanked().subList(0, 5);
+        List<RankedStages> ranked = App.Splatbot.getStageData().getRanked();
         List<MessageEmbed.Field> fields = new ArrayList<>();
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
 
@@ -96,8 +96,8 @@ public class Anarchy extends Command {
             builder.setDescription(executingCommand.getLanguage().getMsg(LanguageKeys.ANARCHY_HEADING));
             builder.setThumbnail("https://i.imgur.com/4lUWWu7.png");
 
-            for(MessageEmbed.Field f : fields) {
-                builder.addField(f);
+            for(int i=0; i<Math.min(5, fields.size()); i++) {
+                builder.addField(fields.get(i));
             }
 
             return builder;

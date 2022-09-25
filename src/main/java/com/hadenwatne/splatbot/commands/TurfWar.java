@@ -31,7 +31,7 @@ public class TurfWar extends Command {
 
     @Override
     public EmbedBuilder run(ExecutingCommand executingCommand) {
-        List<TurfWarStages> tws = App.Splatbot.getStageData().getTurfWar().subList(0, 5);
+        List<TurfWarStages> tws = App.Splatbot.getStageData().getTurfWar();
         List<MessageEmbed.Field> fields = new ArrayList<>();
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
 
@@ -79,8 +79,8 @@ public class TurfWar extends Command {
             builder.setDescription(executingCommand.getLanguage().getMsg(LanguageKeys.TURF_WAR_HEADING));
             builder.setThumbnail("https://i.imgur.com/2SnrhMv.png");
 
-            for(MessageEmbed.Field f : fields) {
-                builder.addField(f);
+            for(int i=0; i<Math.min(5, fields.size()); i++) {
+                builder.addField(fields.get(i));
             }
 
             return builder;
