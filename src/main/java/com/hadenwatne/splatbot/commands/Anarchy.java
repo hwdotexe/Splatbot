@@ -2,7 +2,9 @@ package com.hadenwatne.splatbot.commands;
 
 import com.hadenwatne.splatbot.App;
 import com.hadenwatne.splatbot.commandbuilder.CommandBuilder;
+import com.hadenwatne.splatbot.commandbuilder.CommandParameter;
 import com.hadenwatne.splatbot.commandbuilder.CommandStructure;
+import com.hadenwatne.splatbot.commandbuilder.ParameterType;
 import com.hadenwatne.splatbot.enums.EmbedType;
 import com.hadenwatne.splatbot.enums.ErrorKeys;
 import com.hadenwatne.splatbot.enums.LanguageKeys;
@@ -28,6 +30,10 @@ public class Anarchy extends Command {
     protected CommandStructure buildCommandStructure() {
         return CommandBuilder.Create("anarchy", "Get details about Anarchy Battles.")
                 .addAlias("a")
+                .addParameters(
+                        new CommandParameter("update", "Whether this post should auto-update", ParameterType.BOOLEAN, false)
+                                .setExample("true")
+                )
                 .build();
     }
 
