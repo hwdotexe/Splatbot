@@ -30,8 +30,7 @@ public class RefreshStickyPosts extends TimerTask {
 		c.setTime(new Date());
 
 		// Run this now, and then again every 2 hours
-//		t.schedule(this, c.getTime(), 2 * (60 * 60 * 1000));
-		t.schedule(this, c.getTime(), (60 * 1000));
+		t.schedule(this, c.getTime(), 2 * (60 * 60 * 1000));
 	}
 
 	public void run() {
