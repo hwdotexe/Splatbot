@@ -2,6 +2,7 @@ package com.hadenwatne.splatbot.models.data;
 
 import com.hadenwatne.splatbot.App;
 import com.hadenwatne.splatbot.enums.BotSettingName;
+import com.hadenwatne.splatbot.enums.PostType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,14 +13,24 @@ public class Squid {
 	private final List<BotSetting> settings;
 	private boolean sentWelcome;
 	private HashMap<Long, String> userTimezones;
+	private List<StickyPost> stickyPosts;
 
 	public Squid(String gid) {
 		guildID = gid;
 		settings = new ArrayList<>();
 		sentWelcome = false;
 		userTimezones = new HashMap<>();
-		
+		stickyPosts = new ArrayList<>();
+
 		loadFirstRunDefaults();
+	}
+
+	public List<StickyPost> getStickyPosts() {
+		if (this.stickyPosts == null) {
+			this.stickyPosts = new ArrayList<>();
+		}
+
+		return stickyPosts;
 	}
 
 	public HashMap<Long, String> getUserTimezones() {

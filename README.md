@@ -12,12 +12,10 @@ To add the official, hosted version of Splatbot, click the link in the project o
 If you'd like to build and run your _own_ version of Splatbot, or to contribute new features, keep reading.
 
 ### Commands
-Use `/help` or `Splatbot help` in chat to view a full list of commands.
+Use `/help` to view a full list of commands.
 
 #### How to read command arguments
 Splatbot's commands follow a particular pattern. When a piece of information is required for the command, it will be marked with `<angle brackets>`. If it is an optional command argument, it will be marked with `[square brackets]`. Certain commands are more complex than others, so this rule can help you understand how to use them!
-
-The default command to summon Splatbot is `splatbot`, `!sb`, or by using a Slash Command directly.
 
 ## Custom Splatbot Installation
 To build and run Splatbot yourself, use the following steps. If you'd like to use a pre-assembled binary from the [Releases](https://github.com/hwdotexe/Splatbot/releases)

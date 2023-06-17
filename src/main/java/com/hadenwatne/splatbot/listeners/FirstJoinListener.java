@@ -10,8 +10,7 @@ import com.hadenwatne.splatbot.models.data.Squid;
 import com.hadenwatne.splatbot.services.LoggingService;
 import com.hadenwatne.splatbot.services.MessageService;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.BaseGuildMessageChannel;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -26,7 +25,7 @@ public class FirstJoinListener extends ListenerAdapter {
 		embedBuilder.setThumbnail(App.Splatbot.getBotAvatarUrl());
 		embedBuilder.setDescription("Woomy! "+name+" has joined the server!");
 
-		embedBuilder.addField(":bulb: Get Started", "To view a list of commands and general information, use `"+name+" help`.", false);
+		embedBuilder.addField(":bulb: Get Started", "To view a list of commands and general information, use `\\help`.", false);
 
 		welcomeMessage = embedBuilder;
 	}

@@ -9,10 +9,16 @@ import com.hadenwatne.splatbot.models.command.ExecutingCommand;
 import com.hadenwatne.splatbot.models.data.Weapon;
 import com.hadenwatne.splatbot.services.RandomService;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 
 public class RandomWeapon extends Command {
     public RandomWeapon() {
         super(true);
+    }
+
+    @Override
+    protected Permission[] configureRequiredBotPermissions() {
+        return new Permission[]{Permission.MESSAGE_SEND, Permission.MESSAGE_SEND_IN_THREADS, Permission.MESSAGE_EMBED_LINKS};
     }
 
     @Override

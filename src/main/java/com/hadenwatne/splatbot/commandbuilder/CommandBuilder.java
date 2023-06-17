@@ -2,10 +2,7 @@ package com.hadenwatne.splatbot.commandbuilder;
 
 import com.hadenwatne.splatbot.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.OptionData;
-import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
-import net.dv8tion.jda.api.interactions.commands.build.SubcommandGroupData;
+import net.dv8tion.jda.api.interactions.commands.build.*;
 import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 
 import java.util.List;
@@ -20,7 +17,9 @@ public class CommandBuilder {
         CommandStructure structure = command.getCommandStructure();
         String description = structure.getDescription();
         String shortDesc = description.length() > 100 ? (description.substring(0, 96) + "...") : description;
-        CommandDataImpl data = new CommandDataImpl(structure.getName(), shortDesc);
+        SlashCommandData data = Commands.slash(structure.getName(), shortDesc);
+
+        data.setGuildOnly(command.requiresGuild());
 
         // If there are subcommands, add these instead.
         if (structure.getSubCommands().size() > 0 || structure.getSubcommandGroups().size() > 0) {

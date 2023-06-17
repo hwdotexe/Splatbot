@@ -20,7 +20,7 @@ public class FetchStageData extends TimerTask {
 
 		c.setTime(new Date());
 
-		// Run this now, and then again every 15 hours
+		// Run this now, and then again every 12 hours
 		t.schedule(this, c.getTime(), 12 * (60 * 60 * 1000));
 	}
 
@@ -104,7 +104,7 @@ public class FetchStageData extends TimerTask {
 				for (int m = 0; m < rankedModes.length(); m++) {
 					JSONObject rObj = rankedModes.getJSONObject(m);
 					JSONArray rObjStages = rObj.getJSONArray("vsStages");
-					RankedMode rankedMode = new RankedMode(rObj.getJSONObject("vsRule").getString("name"));
+					RankedMode rankedMode = new RankedMode(rObj.getJSONObject("vsRule").getString("name"), rObj.getString("mode"));
 
 					for (int s = 0; s < rObjStages.length(); s++) {
 						rankedMode.getStages().add(rObjStages.getJSONObject(s).getString("name"));

@@ -6,7 +6,7 @@
 
     <groupId>com.hadenwatne</groupId>
     <artifactId>Splatbot</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <packaging>jar</packaging>
 
     <name>Splatbot</name>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>5.0.0-alpha.11</version>
+            <version>5.0.0-beta.8</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>

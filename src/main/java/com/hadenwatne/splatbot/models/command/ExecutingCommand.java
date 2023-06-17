@@ -7,16 +7,16 @@ import com.hadenwatne.splatbot.services.LoggingService;
 import com.hadenwatne.splatbot.services.MessageService;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 
-import javax.annotation.Nullable;
 import java.io.File;
 import java.io.InputStream;
 import java.util.function.Consumer;
 
 public class ExecutingCommand {
     private final Language language;
-    private final @Nullable Squid squid;
+    private final Squid squid;
 
     private String commandName;
     private String subCommandGroup;
@@ -25,7 +25,7 @@ public class ExecutingCommand {
     private InteractionHook hook;
     private Message message;
 
-    public ExecutingCommand(Language language, @Nullable Squid squid) {
+    public ExecutingCommand(Language language, Squid squid) {
         this.language = language;
         this.squid = squid;
     }
@@ -42,7 +42,7 @@ public class ExecutingCommand {
         return this.language;
     }
 
-    public @Nullable Squid getSquid() {
+    public Squid getSquid() {
         return this.squid;
     }
 
@@ -78,7 +78,7 @@ public class ExecutingCommand {
         return this.subCommand != null;
     }
 
-    public @Nullable ExecutingCommandArguments getCommandArguments() {
+    public ExecutingCommandArguments getCommandArguments() {
         return this.commandArguments;
     }
 

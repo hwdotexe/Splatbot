@@ -8,13 +8,18 @@ import com.hadenwatne.splatbot.commandbuilder.ParameterType;
 import com.hadenwatne.splatbot.enums.EmbedType;
 import com.hadenwatne.splatbot.enums.ErrorKeys;
 import com.hadenwatne.splatbot.enums.LanguageKeys;
+import com.hadenwatne.splatbot.enums.PostType;
 import com.hadenwatne.splatbot.models.command.ExecutingCommand;
+import com.hadenwatne.splatbot.models.data.Language;
+import com.hadenwatne.splatbot.models.data.Squid;
+import com.hadenwatne.splatbot.models.data.StickyPost;
 import com.hadenwatne.splatbot.models.data.stages.RankedMode;
 import com.hadenwatne.splatbot.models.data.stages.RankedStages;
 import com.hadenwatne.splatbot.models.data.stages.SalmonRunStages;
 import com.hadenwatne.splatbot.services.DataService;
 import com.hadenwatne.splatbot.services.LoggingService;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.text.DateFormat;
@@ -24,6 +29,11 @@ import java.util.*;
 public class SalmonRun extends Command {
     public SalmonRun() {
         super(false);
+    }
+
+    @Override
+    protected Permission[] configureRequiredBotPermissions() {
+        return new Permission[]{Permission.MESSAGE_SEND, Permission.MESSAGE_SEND_IN_THREADS, Permission.MESSAGE_EMBED_LINKS};
     }
 
     @Override
@@ -39,11 +49,42 @@ public class SalmonRun extends Command {
 
     @Override
     public EmbedBuilder run(ExecutingCommand executingCommand) {
+        // Timezone settings.
+        String timezone = "America/New_York";
+
+        if(executingCommand.getServer() != null) {
+            timezone = executingCommand.getSquid().getUserTimezones().getOrDefault(executingCommand.getAuthorUser().getIdLong(), timezone);
+        }
+
+        EmbedBuilder response = BuildStageList(timezone, executingCommand.getLanguage());
+
+        if(executingCommand.getCommandArguments().getAsBoolean("update")){
+            if(executingCommand.getServer() != null) {
+                Squid squid = executingCommand.getSquid();
+                String finalTimezone = timezone;
+
+                executingCommand.reply(response, false, message -> {
+                    squid.getStickyPosts().add(new StickyPost(message.getChannel().getIdLong(), message.getIdLong(), PostType.SALMON_RUN, finalTimezone));
+                });
+
+                return null;
+            }
+        }
+
+
+        return response;
+    }
+
+    public EmbedBuilder BuildStageList(String timezone, Language language) {
         List<SalmonRunStages> salmonRun = App.Splatbot.getStageData().getSalmonRun();
         List<MessageEmbed.Field> fields = new ArrayList<>();
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
 
         try {
+            Calendar now = Calendar.getInstance();
+            now.setTime(new Date());
+            now.setTimeZone(TimeZone.getTimeZone(timezone));
+
             for (SalmonRunStages stage : salmonRun) {
                 Calendar start = Calendar.getInstance();
                 start.setTime(sdf.parse(stage.getStartTime()));
@@ -54,13 +95,6 @@ public class SalmonRun extends Command {
                 // Don't show past rotations.
                 if(end.getTime().before(new Date())) {
                     continue;
-                }
-
-                // Timezone settings.
-                String timezone = "America/New_York";
-
-                if(executingCommand.getServer() != null) {
-                    timezone = executingCommand.getSquid().getUserTimezones().getOrDefault(executingCommand.getAuthorUser().getIdLong(), timezone);
                 }
 
                 start.setTimeZone(TimeZone.getTimeZone(timezone));
@@ -93,8 +127,9 @@ public class SalmonRun extends Command {
 
             EmbedBuilder builder = response(EmbedType.SALMONRUN);
 
-            builder.setDescription(executingCommand.getLanguage().getMsg(LanguageKeys.SALMON_RUN_HEADING));
+            builder.setDescription(language.getMsg(LanguageKeys.SALMON_RUN_HEADING));
             builder.setThumbnail("https://splatoon3.ink/assets/little-buddy.445c3c88.png");
+            builder.setFooter(DataService.BuildUpdatedTimestamp(now));
 
             for(int i=0; i<Math.min(5, fields.size()); i++) {
                 builder.addField(fields.get(i));
@@ -105,7 +140,7 @@ public class SalmonRun extends Command {
             LoggingService.LogException(e);
 
             return response(EmbedType.ERROR)
-                    .addField(ErrorKeys.BOT_ERROR.name(), executingCommand.getLanguage().getError(ErrorKeys.BOT_ERROR), false);
+                    .addField(ErrorKeys.BOT_ERROR.name(), language.getError(ErrorKeys.BOT_ERROR), false);
         }
     }
 }

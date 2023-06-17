@@ -8,9 +8,13 @@ import com.hadenwatne.splatbot.factories.EmbedFactory;
 import com.hadenwatne.splatbot.models.command.ExecutingCommand;
 import com.hadenwatne.splatbot.models.data.Language;
 import com.hadenwatne.splatbot.models.data.Squid;
+import com.hadenwatne.splatbot.services.LoggingService;
 import com.hadenwatne.splatbot.services.MessageService;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -65,6 +69,37 @@ public class SlashCommandListener extends ListenerAdapter {
         if(command != null) {
             executingCommand.setCommandName(command.getCommandStructure().getName());
             executingCommand.setInteractionHook(hook);
+
+            // Check that the bot has the necessary Discord permissions to process this command.
+            if(executingCommand.getServer() != null) {
+                Guild server = executingCommand.getServer();
+                StringBuilder noPerms = new StringBuilder();
+
+                for (Permission p : command.getRequiredPermissions()) {
+                    if (!server.getSelfMember().hasPermission(hook.getInteraction().getGuildChannel(), p)) {
+                        if (noPerms.length() > 0) {
+                            noPerms.append(System.lineSeparator());
+                        }
+
+                        noPerms.append(p.getName());
+                    }
+                }
+
+                if (noPerms.length() > 0) {
+                    EmbedBuilder embed = EmbedFactory.GetEmbed(EmbedType.ERROR, ErrorKeys.PERMISSION_MISSING.name())
+                            .setDescription(language.getError(ErrorKeys.PERMISSION_MISSING, new String[]{App.Splatbot.getBotName(), noPerms.toString()}));
+
+                    try {
+                        MessageService.ReplyToMessage(hook, embed, false);
+                    } catch (InsufficientPermissionException e) {
+                        MessageService.ReplyToMessage(hook, language.getError(ErrorKeys.PERMISSION_MISSING, new String[]{App.Splatbot.getBotName(), noPerms.toString()}), false);
+                    } catch (Exception e) {
+                        LoggingService.LogException(e);
+                    }
+
+                    return;
+                }
+            }
 
             App.Splatbot.getCommandHandler().HandleCommand(command, executingCommand, commandText);
         } else {

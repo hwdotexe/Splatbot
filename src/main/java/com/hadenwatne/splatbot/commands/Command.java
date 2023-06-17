@@ -8,6 +8,7 @@ import com.hadenwatne.splatbot.models.command.ExecutingCommand;
 import com.hadenwatne.splatbot.services.LoggingService;
 import com.hadenwatne.splatbot.services.PaginationService;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.util.ArrayList;
@@ -15,11 +16,13 @@ import java.util.List;
 
 public abstract class Command {
     private final CommandStructure commandStructure;
+    private final Permission[] botPermissions;
     private final boolean requiresGuild;
     private final List<MessageEmbed.Field> helpFields;
 
     Command(boolean requiresGuild) {
         this.commandStructure = this.buildCommandStructure();
+        this.botPermissions = this.configureRequiredBotPermissions();
         this.requiresGuild = requiresGuild;
         this.helpFields = new ArrayList<>();
 
@@ -37,6 +40,12 @@ public abstract class Command {
     }
 
     protected abstract CommandStructure buildCommandStructure();
+
+    protected abstract Permission[] configureRequiredBotPermissions();
+
+    public Permission[] getRequiredPermissions() {
+        return this.botPermissions;
+    }
 
     protected EmbedBuilder response(EmbedType type) {
         return EmbedFactory.GetEmbed(type, this.commandStructure.getName());

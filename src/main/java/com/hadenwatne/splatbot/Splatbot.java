@@ -1,7 +1,7 @@
 package com.hadenwatne.splatbot;
 
 import com.hadenwatne.splatbot.enums.LogType;
-import com.hadenwatne.splatbot.listeners.ChatListener;
+import com.hadenwatne.splatbot.listeners.DMChatListener;
 import com.hadenwatne.splatbot.listeners.FirstJoinListener;
 import com.hadenwatne.splatbot.listeners.SlashCommandListener;
 import com.hadenwatne.splatbot.models.data.GiantSquid;
@@ -13,9 +13,11 @@ import com.hadenwatne.splatbot.services.RandomService;
 import com.hadenwatne.splatbot.services.StorageService;
 import com.hadenwatne.splatbot.tasks.FetchStageData;
 import com.hadenwatne.splatbot.tasks.FetchWeaponData;
+import com.hadenwatne.splatbot.tasks.RefreshStickyPosts;
 import com.hadenwatne.splatbot.tasks.SaveDataTask;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.exceptions.InvalidTokenException;
 
 import javax.security.auth.login.LoginException;
 import java.util.ArrayList;
@@ -93,6 +95,7 @@ public class Splatbot {
         new SaveDataTask();
         new FetchStageData();
         new FetchWeaponData();
+        new RefreshStickyPosts();
 
         // Set the bot name and avatar URL.
         this.botName = getJDA().getSelfUser().getName();
@@ -102,7 +105,7 @@ public class Splatbot {
         this.commandHandler = new CommandHandler();
 
         // Begin listening for events.
-        this.jda.addEventListener(new ChatListener());
+        this.jda.addEventListener(new DMChatListener());
         this.jda.addEventListener(new SlashCommandListener());
         this.jda.addEventListener(new FirstJoinListener());
     }
@@ -112,7 +115,7 @@ public class Splatbot {
             this.jda = JDABuilder.createDefault(apiKey).build();
 
             this.jda.awaitReady();
-        } catch (LoginException e) {
+        } catch (InvalidTokenException e) {
             if(apiKey.equals("API_KEY_HERE")) {
                 giantSquid.getBotAPIKey();
                 giantSquid.getBotAPIKeySecondary();

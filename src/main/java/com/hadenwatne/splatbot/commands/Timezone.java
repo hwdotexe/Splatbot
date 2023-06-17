@@ -14,6 +14,7 @@ import com.hadenwatne.splatbot.models.data.stages.TurfWarStages;
 import com.hadenwatne.splatbot.services.LanguageService;
 import com.hadenwatne.splatbot.services.LoggingService;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.text.DateFormat;
@@ -26,6 +27,11 @@ import java.util.List;
 public class Timezone extends Command {
     public Timezone() {
         super(true);
+    }
+
+    @Override
+    protected Permission[] configureRequiredBotPermissions() {
+        return new Permission[]{Permission.MESSAGE_SEND, Permission.MESSAGE_SEND_IN_THREADS, Permission.MESSAGE_EMBED_LINKS};
     }
 
     @Override

@@ -4,10 +4,10 @@ import com.hadenwatne.splatbot.App;
 import com.hadenwatne.splatbot.enums.BotSettingName;
 import com.hadenwatne.splatbot.enums.BotSettingType;
 import com.hadenwatne.splatbot.services.DataService;
-import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 
 public class BotSetting {
 	private BotSettingName name;
@@ -64,9 +64,9 @@ public class BotSetting {
 		return null;
 	}
 
-	public Emote getAsEmote(Guild server) {
+	public Emoji getAsEmote(Guild server) {
 		if(DataService.IsLong(value)) {
-			return server.getEmoteById(value);
+			return server.getEmojiById(value);
 		}
 
 		return null;
@@ -119,7 +119,7 @@ public class BotSetting {
 			return false;
 		case EMOTE:
 			if(DataService.IsLong(v)) {
-				Emote emote = App.Splatbot.getJDA().getGuildById(b.getGuildID()).getEmoteById(v);
+				Emoji emote = App.Splatbot.getJDA().getGuildById(b.getGuildID()).getEmojiById(v);
 
 				if (emote != null) {
 					value = v;

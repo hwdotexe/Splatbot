@@ -37,6 +37,7 @@ public class HTTPService {
                     if (body != null) {
                         conn.setDoOutput(true);
                         conn.setRequestProperty("content-type", "application/json");
+                        conn.setRequestProperty("User-Agent", "Splatbot by hwdotexe, Discord chatbot");
                         conn.getOutputStream().write(body.toString().getBytes());
                     }
 

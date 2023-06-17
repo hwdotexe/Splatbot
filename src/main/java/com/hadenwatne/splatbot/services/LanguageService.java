@@ -14,7 +14,6 @@ import com.hadenwatne.splatbot.models.data.LanguageMessage;
 import com.hadenwatne.splatbot.models.data.Squid;
 import net.dv8tion.jda.api.entities.Guild;
 
-import javax.annotation.Nullable;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,7 +52,7 @@ public class LanguageService {
 		return this.defaultLanguage;
 	}
 
-	public Language getLangFor(@Nullable Squid squid) {
+	public Language getLangFor(Squid squid) {
 		if(squid != null){
 			Language l = getLang(squid.getSettingFor(BotSettingName.SERVER_LANG).getAsString());
 

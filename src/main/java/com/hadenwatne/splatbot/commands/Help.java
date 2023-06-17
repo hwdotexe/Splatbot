@@ -12,6 +12,7 @@ import com.hadenwatne.splatbot.models.command.ExecutingCommand;
 import com.hadenwatne.splatbot.models.command.ExecutingCommandArguments;
 import com.hadenwatne.splatbot.services.PaginationService;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.util.ArrayList;
@@ -20,6 +21,11 @@ import java.util.List;
 public class Help extends Command {
 	public Help() {
 		super(false);
+	}
+
+	@Override
+	protected Permission[] configureRequiredBotPermissions() {
+		return new Permission[]{Permission.MESSAGE_SEND, Permission.MESSAGE_SEND_IN_THREADS, Permission.MESSAGE_EMBED_LINKS};
 	}
 
 	@Override
@@ -60,8 +66,7 @@ public class Help extends Command {
 			embedBuilder = EmbedFactory.GetEmbed(EmbedType.INFO, "Help");
 
 			embedBuilder.addField("All Commands", list, false);
-			embedBuilder.addField("Information", "View additional information for each command by using `"+App.Splatbot.getBotName()+" help <command>`!", false);
-			embedBuilder.addField("Summoning "+App.Splatbot.getBotName(), "You can summon me with `"+App.Splatbot.getBotName()+"`, `!sb`, or by using a Slash Command.", false);
+			embedBuilder.addField("Information", "View additional information for each command by using `/help <command>`!", false);
 
 			embedBuilder.setFooter(App.Splatbot.getBotName() + (App.IsDebug ? " **Debug Mode**" : ""));
 

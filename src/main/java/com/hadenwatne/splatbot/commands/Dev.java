@@ -12,10 +12,11 @@ import com.hadenwatne.splatbot.models.data.Squid;
 import com.hadenwatne.splatbot.services.DataService;
 import com.hadenwatne.splatbot.services.LoggingService;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Activity.ActivityType;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.PrivateChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,6 +32,11 @@ import java.util.regex.Pattern;
 public class Dev extends Command {
 	public Dev() {
 		super(false);
+	}
+
+	@Override
+	protected Permission[] configureRequiredBotPermissions() {
+		return new Permission[]{Permission.MESSAGE_SEND, Permission.MESSAGE_SEND_IN_THREADS, Permission.MESSAGE_EMBED_LINKS};
 	}
 
 	@Override

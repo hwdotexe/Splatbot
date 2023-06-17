@@ -19,6 +19,11 @@ public class DataService {
         return timeHeader;
     }
 
+    public static String BuildUpdatedTimestamp(Calendar time) {
+        String startTime = (time.get(Calendar.HOUR) == 0 ? 12 : time.get(Calendar.HOUR)) + ":" + (time.get(Calendar.MINUTE) < 10 ? "0" : "") + time.get(Calendar.MINUTE) + (time.get(Calendar.AM_PM) == Calendar.AM ? "a" : "p");
+        return "Updated " + (time.get(Calendar.MONTH) + 1) + "/" + time.get(Calendar.DAY_OF_MONTH) + " @ " + startTime + " (" + time.getTimeZone().getDisplayName(time.getTimeZone().inDaylightTime(time.getTime()), TimeZone.SHORT) + ")";
+    }
+
     public static LinkedHashMap<String, Integer> SortHashMap(HashMap<String, Integer> passedMap) {
         List<String> mapKeys = new ArrayList<String>(passedMap.keySet());
         List<Integer> mapValues = new ArrayList<Integer>(passedMap.values());

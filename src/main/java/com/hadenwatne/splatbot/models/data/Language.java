@@ -128,6 +128,7 @@ public class Language {
         errors.add(new LanguageError(ErrorKeys.NO_PERMISSION_USER, new String[]{"I'm afraid I can't let you do that."}));
         errors.add(new LanguageError(ErrorKeys.NOT_FOUND, new String[]{"There were no results."}));
         errors.add(new LanguageError(ErrorKeys.PAGE_NOT_FOUND, new String[]{"The page you requested is empty or does not exist."}));
+        errors.add(new LanguageError(ErrorKeys.PERMISSION_MISSING, new String[]{wildcard+" requires the following permissions in order to process that command: "+linebreak+wildcard}));
         errors.add(new LanguageError(ErrorKeys.RESERVED_WORD, new String[]{"It looks like you tried to use a reserved word. Try a different one!"}));
         errors.add(new LanguageError(ErrorKeys.SETTING_VALUE_INVALID, new String[]{"The value you provided is invalid. Please try again."}));
         errors.add(new LanguageError(ErrorKeys.WRONG_USAGE, new String[]{"The command syntax you used is incorrect."}));

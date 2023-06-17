@@ -10,54 +10,21 @@ import com.hadenwatne.splatbot.models.data.Language;
 import com.hadenwatne.splatbot.models.data.Squid;
 import com.hadenwatne.splatbot.services.MessageService;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class ChatListener extends ListenerAdapter {
+public class DMChatListener extends ListenerAdapter {
 
 	@Override
 	public void onMessageReceived(MessageReceivedEvent e) {
 		if (!e.getAuthor().isBot()) {
 			Message message = e.getMessage();
-			final String messageText = message.getContentRaw();
 
-			// Messages from a Guild may contain additional data or context for the bot.
-			if (e.isFromGuild()) {
-				Guild server = e.getGuild();
-				Squid squid = App.Splatbot.getStorageService().getSquid(server.getId());
-				String triggerUsed = "";
+			if (!e.isFromGuild()) {
+				final String messageText = message.getContentRaw();
 
-				if (messageText.toLowerCase().startsWith(App.Splatbot.getBotName().toLowerCase())) {
-					triggerUsed = App.Splatbot.getBotName().toLowerCase();
-				} else if (messageText.toLowerCase().startsWith("!sb")) {
-					triggerUsed = "!sb";
-				} else if (messageText.toLowerCase().startsWith("!splatbot")) {
-					triggerUsed = "!splatbot";
-				}
-
-				// Check if this message is trying to run a command.
-				if (triggerUsed.length() > 0) {
-					Language language = App.Splatbot.getLanguageService().getLangFor(squid);
-
-					if (messageText.trim().length() == triggerUsed.length()) {
-						EmbedBuilder embed = EmbedFactory.GetEmbed(EmbedType.TURFWAR)
-								.setDescription(language.getError(ErrorKeys.HEY_THERE, new String[]{App.Splatbot.getBotName()}));
-
-						MessageService.ReplyToMessage(message, embed, false);
-
-						return;
-					}
-
-					final String command = messageText.substring(triggerUsed.length()).trim();
-
-					handleCommand(message, command, squid, language);
-
-					return;
-				}
-			} else {
 				// Messages sent to the bot directly are limited to basic commands.
 				if (e.getChannelType() == ChannelType.PRIVATE || e.getChannelType() == ChannelType.GROUP) {
 					final String botNameLower = App.Splatbot.getBotName().toLowerCase();
