@@ -77,7 +77,6 @@ public class Anarchy extends Command {
     public EmbedBuilder BuildStageList(String timezone, Language language) {
         List<RankedStages> ranked = App.Splatbot.getStageData().getRanked();
         List<MessageEmbed.Field> fields = new ArrayList<>();
-        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
 
         try {
             Calendar now = Calendar.getInstance();
@@ -86,10 +85,10 @@ public class Anarchy extends Command {
 
             for (RankedStages stage : ranked) {
                 Calendar start = Calendar.getInstance();
-                start.setTime(sdf.parse(stage.getStartTime()));
+                start.setTime(DataService.ParseDate(stage.getStartTime()));
 
                 Calendar end = Calendar.getInstance();
-                end.setTime(sdf.parse(stage.getEndTime()));
+                end.setTime(DataService.ParseDate(stage.getStartTime()));
 
                 // Don't show past rotations.
                 if(end.getTime().before(new Date())) {

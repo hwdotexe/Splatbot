@@ -78,7 +78,6 @@ public class SalmonRun extends Command {
     public EmbedBuilder BuildStageList(String timezone, Language language) {
         List<SalmonRunStages> salmonRun = App.Splatbot.getStageData().getSalmonRun();
         List<MessageEmbed.Field> fields = new ArrayList<>();
-        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
 
         try {
             Calendar now = Calendar.getInstance();
@@ -87,10 +86,10 @@ public class SalmonRun extends Command {
 
             for (SalmonRunStages stage : salmonRun) {
                 Calendar start = Calendar.getInstance();
-                start.setTime(sdf.parse(stage.getStartTime()));
+                start.setTime(DataService.ParseDate(stage.getStartTime()));
 
                 Calendar end = Calendar.getInstance();
-                end.setTime(sdf.parse(stage.getEndTime()));
+                end.setTime(DataService.ParseDate(stage.getStartTime()));
 
                 // Don't show past rotations.
                 if(end.getTime().before(new Date())) {
