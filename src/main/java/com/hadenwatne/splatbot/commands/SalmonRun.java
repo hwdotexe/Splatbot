@@ -89,7 +89,7 @@ public class SalmonRun extends Command {
                 start.setTime(DataService.ParseDate(stage.getStartTime()));
 
                 Calendar end = Calendar.getInstance();
-                end.setTime(DataService.ParseDate(stage.getStartTime()));
+                end.setTime(DataService.ParseDate(stage.getEndTime()));
 
                 // Don't show past rotations.
                 if(end.getTime().before(new Date())) {
