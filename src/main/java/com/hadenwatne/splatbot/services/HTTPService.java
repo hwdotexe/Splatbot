@@ -1,5 +1,6 @@
 package com.hadenwatne.splatbot.services;
 
+import com.hadenwatne.splatbot.App;
 import com.hadenwatne.splatbot.enums.HTTPVerb;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,7 +38,11 @@ public class HTTPService {
                     if (body != null) {
                         conn.setDoOutput(true);
                         conn.setRequestProperty("content-type", "application/json");
-                        conn.setRequestProperty("User-Agent", "Splatbot by hwdotexe, Discord chatbot");
+
+                        if(!App.IsDebug) {
+                            conn.setRequestProperty("User-Agent", "Splatbot by hwdotexe, Discord chatbot");
+                        }
+
                         conn.getOutputStream().write(body.toString().getBytes());
                     }
 
