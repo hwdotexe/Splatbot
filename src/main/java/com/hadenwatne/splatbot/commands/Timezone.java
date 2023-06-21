@@ -42,12 +42,25 @@ public class Timezone extends Command {
                         .addSelectionOptions(
                                 "Pacific/Honolulu",
                                 "America/Anchorage",
+                                "America/Vancouver",
                                 "America/Los_Angeles",
+                                "America/Phoenix",
+                                "America/Edmonton",
                                 "America/Denver",
                                 "America/Chicago",
+                                "America/Regina",
                                 "America/New_York",
+                                "America/Panama",
+                                "America/Winnipeg",
+                                "America/Toronto",
+                                "America/Montreal",
+                                "America/Puerto_Rico",
                                 "Europe/London",
-                                "Asia/Tokyo")
+                                "Europe/Berlin",
+                                "Asia/Tokyo",
+                                "Asia/Bangkok",
+                                "Asia/Seoul",
+                                "Asia/Shanghai")
                         .setExample("America/New_York"))
                 .build();
     }

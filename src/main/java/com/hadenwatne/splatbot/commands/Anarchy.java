@@ -17,6 +17,7 @@ import com.hadenwatne.splatbot.models.data.stages.RankedMode;
 import com.hadenwatne.splatbot.models.data.stages.RankedStages;
 import com.hadenwatne.splatbot.services.DataService;
 import com.hadenwatne.splatbot.services.LoggingService;
+import com.hadenwatne.splatbot.services.StageEmbedService;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -55,10 +56,9 @@ public class Anarchy extends Command {
             timezone = executingCommand.getSquid().getUserTimezones().getOrDefault(executingCommand.getAuthorUser().getIdLong(), timezone);
         }
 
-        EmbedBuilder response = BuildStageList(timezone, executingCommand.getLanguage());
-
         if(executingCommand.getCommandArguments().getAsBoolean("update")){
             if(executingCommand.getServer() != null) {
+                EmbedBuilder response = BuildStageList(timezone, executingCommand.getLanguage(), true);
                 Squid squid = executingCommand.getSquid();
                 String finalTimezone = timezone;
 
@@ -70,77 +70,29 @@ public class Anarchy extends Command {
             }
         }
 
-
-        return response;
+        return BuildStageList(timezone, executingCommand.getLanguage(), false);
     }
 
-    public EmbedBuilder BuildStageList(String timezone, Language language) {
+    public EmbedBuilder BuildStageList(String timezone, Language language, boolean refreshing) {
         List<RankedStages> ranked = App.Splatbot.getStageData().getRanked();
-        List<MessageEmbed.Field> fields = new ArrayList<>();
 
         try {
+            List<MessageEmbed.Field> fields = new ArrayList<>();
             Calendar now = Calendar.getInstance();
             now.setTime(new Date());
             now.setTimeZone(TimeZone.getTimeZone(timezone));
 
-            for (RankedStages stage : ranked) {
-                Calendar start = Calendar.getInstance();
-                start.setTime(DataService.ParseDate(stage.getStartTime()));
-
-                Calendar end = Calendar.getInstance();
-                end.setTime(DataService.ParseDate(stage.getEndTime()));
-
-                // Don't show past rotations.
-                if(end.getTime().before(new Date())) {
-                    continue;
-                }
-
-                start.setTimeZone(TimeZone.getTimeZone(timezone));
-                end.setTimeZone(TimeZone.getTimeZone(timezone));
-
-                String timeHeader = DataService.BuildTimeWindowString(start,end);
-                StringBuilder modes = new StringBuilder();
-
-                for(RankedMode mode : stage.getModes()) {
-                    if(modes.length() > 0) {
-                        modes.append(System.lineSeparator());
-                    }
-
-                    modes.append("__**");
-                    modes.append(mode.getGamemode());
-                    modes.append("**__");
-                    modes.append(" _(");
-                    modes.append(mode.getMode());
-                    modes.append(")_");
-                    modes.append(System.lineSeparator());
-
-                    StringBuilder stages = new StringBuilder();
-
-                    for(String s : mode.getStages()) {
-                        if(stages.length() > 0) {
-                            stages.append(System.lineSeparator());
-                        }
-
-                        stages.append(s);
-                    }
-
-                    modes.append(stages);
-                }
-
-                MessageEmbed.Field field = new MessageEmbed.Field(timeHeader, modes.toString(), false);
-
-                fields.add(field);
+            for(int i=0; i<Math.min(5, ranked.size()); i++) {
+                fields.add(StageEmbedService.AnarchyField(ranked.get(i), timezone));
             }
 
             EmbedBuilder builder = response(EmbedType.RANKED);
 
             builder.setDescription(language.getMsg(LanguageKeys.ANARCHY_HEADING));
             builder.setThumbnail("https://i.imgur.com/4lUWWu7.png");
-            builder.setFooter(DataService.BuildUpdatedTimestamp(now));
+            builder.setFooter(DataService.BuildUpdatedTimestamp(now, refreshing));
 
-            for(int i=0; i<Math.min(5, fields.size()); i++) {
-                builder.addField(fields.get(i));
-            }
+            fields.forEach(builder::addField);
 
             return builder;
         } catch (Exception e) {

@@ -16,6 +16,7 @@ import com.hadenwatne.splatbot.models.data.StickyPost;
 import com.hadenwatne.splatbot.models.data.stages.TurfWarStages;
 import com.hadenwatne.splatbot.services.DataService;
 import com.hadenwatne.splatbot.services.LoggingService;
+import com.hadenwatne.splatbot.services.StageEmbedService;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -54,10 +55,9 @@ public class TurfWar extends Command {
             timezone = executingCommand.getSquid().getUserTimezones().getOrDefault(executingCommand.getAuthorUser().getIdLong(), timezone);
         }
 
-        EmbedBuilder response = BuildStageList(timezone, executingCommand.getLanguage());
-
         if(executingCommand.getCommandArguments().getAsBoolean("update")){
             if(executingCommand.getServer() != null) {
+                EmbedBuilder response = BuildStageList(timezone, executingCommand.getLanguage(), true);
                 Squid squid = executingCommand.getSquid();
                 String finalTimezone = timezone;
 
@@ -69,59 +69,29 @@ public class TurfWar extends Command {
             }
         }
 
-
-        return response;
+        return BuildStageList(timezone, executingCommand.getLanguage(), false);
     }
 
-    public EmbedBuilder BuildStageList(String timezone, Language language) {
+    public EmbedBuilder BuildStageList(String timezone, Language language, boolean refreshing) {
         List<TurfWarStages> tws = App.Splatbot.getStageData().getTurfWar();
-        List<MessageEmbed.Field> fields = new ArrayList<>();
 
         try {
+            List<MessageEmbed.Field> fields = new ArrayList<>();
             Calendar now = Calendar.getInstance();
             now.setTime(new Date());
             now.setTimeZone(TimeZone.getTimeZone(timezone));
 
-            for (TurfWarStages stage : tws) {
-                Calendar start = Calendar.getInstance();
-                start.setTime(DataService.ParseDate(stage.getStartTime()));
-
-                Calendar end = Calendar.getInstance();
-                end.setTime(DataService.ParseDate(stage.getEndTime()));
-
-                // Don't show past rotations.
-                if(end.getTime().before(new Date())) {
-                    continue;
-                }
-
-                start.setTimeZone(TimeZone.getTimeZone(timezone));
-                end.setTimeZone(TimeZone.getTimeZone(timezone));
-
-                String timeHeader = DataService.BuildTimeWindowString(start,end);
-                StringBuilder stages = new StringBuilder();
-
-                for(String s : stage.getStages()) {
-                    if(stages.length() > 0) {
-                        stages.append(System.lineSeparator());
-                    }
-
-                    stages.append(s);
-                }
-
-                MessageEmbed.Field field = new MessageEmbed.Field(timeHeader, stages.toString(), false);
-
-                fields.add(field);
+            for(int i=0; i<Math.min(5, tws.size()); i++) {
+                fields.add(StageEmbedService.TurfWarField(tws.get(i), timezone));
             }
 
             EmbedBuilder builder = response(EmbedType.TURFWAR);
 
             builder.setDescription(language.getMsg(LanguageKeys.TURF_WAR_HEADING));
             builder.setThumbnail("https://i.imgur.com/2SnrhMv.png");
-            builder.setFooter(DataService.BuildUpdatedTimestamp(now));
+            builder.setFooter(DataService.BuildUpdatedTimestamp(now, refreshing));
 
-            for(int i=0; i<Math.min(5, fields.size()); i++) {
-                builder.addField(fields.get(i));
-            }
+            fields.forEach(builder::addField);
 
             return builder;
         } catch (Exception e) {

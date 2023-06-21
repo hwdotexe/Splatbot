@@ -11,10 +11,7 @@ import com.hadenwatne.splatbot.services.LanguageService;
 import com.hadenwatne.splatbot.services.LoggingService;
 import com.hadenwatne.splatbot.services.RandomService;
 import com.hadenwatne.splatbot.services.StorageService;
-import com.hadenwatne.splatbot.tasks.FetchStageData;
-import com.hadenwatne.splatbot.tasks.FetchWeaponData;
-import com.hadenwatne.splatbot.tasks.RefreshStickyPosts;
-import com.hadenwatne.splatbot.tasks.SaveDataTask;
+import com.hadenwatne.splatbot.tasks.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.exceptions.InvalidTokenException;
@@ -95,6 +92,7 @@ public class Splatbot {
         new SaveDataTask();
         new FetchStageData();
         new FetchWeaponData();
+        new PruneStaleStageData();
         new RefreshStickyPosts();
 
         // Set the bot name and avatar URL.

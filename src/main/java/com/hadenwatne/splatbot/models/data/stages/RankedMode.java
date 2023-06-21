@@ -10,7 +10,7 @@ public class RankedMode {
 
     public RankedMode(String game, String mode) {
         this.game = game;
-        this.mode = mode;
+        this.mode = mode.equals("CHALLENGE") ? "Series" : "Open";
         this.stages = new ArrayList<>();
     }
 

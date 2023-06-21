@@ -18,14 +18,14 @@ public class DataService {
 
         String startTime = (start.get(Calendar.HOUR) == 0 ? 12 : start.get(Calendar.HOUR)) + ":" + start.get(Calendar.MINUTE) + "0" + (start.get(Calendar.AM_PM) == Calendar.AM ? "a" : "p");
         String endTime = (end.get(Calendar.HOUR) == 0 ? 12 : end.get(Calendar.HOUR)) + ":" + end.get(Calendar.MINUTE) + "0" + (end.get(Calendar.AM_PM) == Calendar.AM ? "a" : "p");
-        String timeHeader = HourToClockEmoji(start.get(Calendar.HOUR)) + " " + (start.get(Calendar.MONTH) + 1) + "/" + start.get(Calendar.DAY_OF_MONTH) + " " + startTime + " — " + (end.get(Calendar.MONTH) + 1) + "/" + end.get(Calendar.DAY_OF_MONTH) + " " + endTime + " (" + start.getTimeZone().getDisplayName(start.getTimeZone().inDaylightTime(start.getTime()), TimeZone.SHORT) + ")";
+        String timeHeader = HourToClockEmoji(start.get(Calendar.HOUR)) + " " + (start.get(Calendar.MONTH) + 1) + "/" + start.get(Calendar.DAY_OF_MONTH) + " " + startTime + " — " + (end.get(Calendar.MONTH) + 1) + "/" + end.get(Calendar.DAY_OF_MONTH) + " " + endTime;
 
         return timeHeader;
     }
 
-    public static String BuildUpdatedTimestamp(Calendar time) {
+    public static String BuildUpdatedTimestamp(Calendar time, boolean refreshing) {
         String startTime = (time.get(Calendar.HOUR) == 0 ? 12 : time.get(Calendar.HOUR)) + ":" + (time.get(Calendar.MINUTE) < 10 ? "0" : "") + time.get(Calendar.MINUTE) + (time.get(Calendar.AM_PM) == Calendar.AM ? "a" : "p");
-        return "Updated " + (time.get(Calendar.MONTH) + 1) + "/" + time.get(Calendar.DAY_OF_MONTH) + " @ " + startTime + " (" + time.getTimeZone().getDisplayName(time.getTimeZone().inDaylightTime(time.getTime()), TimeZone.SHORT) + ")";
+        return (refreshing ? "Refreshed " : "As of ") + (time.get(Calendar.MONTH) + 1) + "/" + time.get(Calendar.DAY_OF_MONTH) + " @ " + startTime + " • " + time.getTimeZone().getDisplayName(time.getTimeZone().inDaylightTime(time.getTime()), TimeZone.SHORT);
     }
 
     public static LinkedHashMap<String, Integer> SortHashMap(HashMap<String, Integer> passedMap) {

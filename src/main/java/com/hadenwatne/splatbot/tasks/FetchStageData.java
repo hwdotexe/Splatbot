@@ -32,7 +32,7 @@ public class FetchStageData extends TimerTask {
 
 		App.Splatbot.setStageData(stageData);
 
-		LoggingService.Log(LogType.SYSTEM, "Stage data refresh task ran");
+		LoggingService.Log(LogType.SYSTEM, "Stage data refresh task ran.");
 	}
 
 	private void loadStageSchedules(StageData stageData) {

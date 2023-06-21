@@ -48,13 +48,6 @@ public class RefreshStickyPosts {
 	}
 
 	public void runTimer() {
-		Date now = new Date();
-
-		// Remove Stage objects that are in the past.
-		App.Splatbot.getStageData().getTurfWar().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
-		App.Splatbot.getStageData().getSalmonRun().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
-		App.Splatbot.getStageData().getRanked().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
-
 		// Schedule the next run of this task based on Turf War since it changes every 2 hours.
 		Date nextRun = DataService.ParseDate(App.Splatbot.getStageData().getTurfWar().get(0).getEndTime());
 		Calendar c = Calendar.getInstance();
@@ -73,11 +66,11 @@ public class RefreshStickyPosts {
 						EmbedBuilder stages;
 
 						if(stickyPost.getType() == PostType.TURF_WAR) {
-							stages = getTurfWarCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang());
+							stages = getTurfWarCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
 						} else if(stickyPost.getType() == PostType.ANARCHY) {
-							stages = getAnarchyCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang());
+							stages = getAnarchyCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
 						} else{
-							stages = getSalmonRunCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang());
+							stages = getSalmonRunCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
 						}
 
 						message.editMessageEmbeds(stages.build()).queue();
@@ -91,7 +84,7 @@ public class RefreshStickyPosts {
 
 		rescheduleTimer(c.getTime());
 
-		LoggingService.Log(LogType.SYSTEM, "Sticky post refresh task ran. Rescheduled for " + nextRun.toString());
+		LoggingService.Log(LogType.SYSTEM, "Sticky post refresh task ran.");
 	}
 
 	private TurfWar getTurfWarCommand() {

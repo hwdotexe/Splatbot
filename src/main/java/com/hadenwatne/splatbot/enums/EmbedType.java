@@ -3,10 +3,12 @@ package com.hadenwatne.splatbot.enums;
 import java.awt.*;
 
 public enum EmbedType {
-    TURFWAR(new Color(61, 153, 60)),
-    RANKED(new Color(170, 23, 92)),
-    SALMONRUN(new Color(188, 101, 20)),
-    ERROR(new Color(209, 5, 19)),
+    TURFWAR(new Color(61, 163, 60)),
+    RANKED(new Color(226, 88, 29)),
+    SALMONRUN(new Color(216, 98, 62)),
+    ERROR(new Color(195, 5, 19)),
+    CHALLENGE(new Color(170, 23, 92)),
+    SUMMARY(new Color(39, 78, 226)),
     INFO(Color.yellow),
     EXPIRED(Color.lightGray);
 
