@@ -68,6 +68,8 @@ public class RefreshStickyPosts {
 							stages = getAnarchyCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
 						} else if(stickyPost.getType() == PostType.X_BATTLES) {
 							stages = getXBattlesCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
+						} else if(stickyPost.getType() == PostType.CHALLENGE) {
+							stages = getChallengeCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
 						} else{
 							stages = getSalmonRunCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
 						}
@@ -120,6 +122,16 @@ public class RefreshStickyPosts {
 		for(Command c : App.Splatbot.getCommandHandler().getLoadedCommands()) {
 			if(c.getCommandStructure().getName().equals("xbattles")) {
 				return (XBattles) c;
+			}
+		}
+
+		return null;
+	}
+
+	private Challenge getChallengeCommand() {
+		for(Command c : App.Splatbot.getCommandHandler().getLoadedCommands()) {
+			if(c.getCommandStructure().getName().equals("challenge")) {
+				return (Challenge) c;
 			}
 		}
 

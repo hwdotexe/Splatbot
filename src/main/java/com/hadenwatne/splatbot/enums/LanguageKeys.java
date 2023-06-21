@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public enum LanguageKeys {
     ANARCHY_HEADING,
+    CHALLENGE_HEADING,
     GENERIC_SUCCESS,
     SALMON_RUN_HEADING,
     SETTING_LIST_TITLE,

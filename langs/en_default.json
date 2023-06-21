@@ -7,6 +7,12 @@
       ]
     },
     {
+      "key": "CHALLENGE_HEADING",
+      "values": [
+        "What crazy battles await you in Challenge Mode?"
+      ]
+    },
+    {
       "key": "GENERIC_SUCCESS",
       "values": [
         "Success!"

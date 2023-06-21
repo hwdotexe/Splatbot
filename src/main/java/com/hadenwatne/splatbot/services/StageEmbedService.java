@@ -106,6 +106,49 @@ public class StageEmbedService {
         return new MessageEmbed.Field(timeHeader, stages.toString(), false);
     }
 
+    public static MessageEmbed.Field ChallengeField(ChallengeEvent stage, String timezone) {
+        StringBuilder challengeText = new StringBuilder();
+
+        challengeText.append("_");
+        challengeText.append(stage.getDescription());
+        challengeText.append("_");
+        challengeText.append(System.lineSeparator());
+        challengeText.append("**— ");
+        challengeText.append(stage.getGameMode());
+        challengeText.append("— **");
+
+        for(String s : stage.getStages()) {
+            challengeText.append(System.lineSeparator());
+            challengeText.append("• ");
+            challengeText.append(s);
+        }
+
+        for(ChallengeEventTime time : stage.getTimes()) {
+            Calendar start = Calendar.getInstance();
+            start.setTime(DataService.ParseDate(time.getStartTime()));
+
+            Calendar end = Calendar.getInstance();
+            end.setTime(DataService.ParseDate(time.getEndTime()));
+
+            start.setTimeZone(TimeZone.getTimeZone(timezone));
+            end.setTimeZone(TimeZone.getTimeZone(timezone));
+
+            String timeWindowString = DataService.BuildTimeWindowString(start,end);
+
+            challengeText.append(System.lineSeparator());
+            challengeText.append(timeWindowString);
+        }
+
+        challengeText.append(System.lineSeparator());
+        challengeText.append("> ");
+
+        String regulation = stage.getRegulation().replaceAll("(<br />)+", System.lineSeparator()+"> ");
+
+        challengeText.append(regulation);
+
+        return new MessageEmbed.Field("__"+stage.getName()+"__", challengeText.toString(), false);
+    }
+
     public static MessageEmbed.Field SalmonRunField(SalmonRunStages stage, String timezone) {
         Calendar start = Calendar.getInstance();
         start.setTime(DataService.ParseDate(stage.getStartTime()));

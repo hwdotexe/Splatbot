@@ -134,6 +134,7 @@ public class Language {
         errors.add(new LanguageError(ErrorKeys.WRONG_USAGE, new String[]{"The command syntax you used is incorrect."}));
 
         messages.add(new LanguageMessage(LanguageKeys.ANARCHY_HEADING, new String[]{"Climb your way through the ranks in these upcoming matches!"}));
+        messages.add(new LanguageMessage(LanguageKeys.CHALLENGE_HEADING, new String[]{"What crazy battles await you in Challenge Mode?"}));
         messages.add(new LanguageMessage(LanguageKeys.GENERIC_SUCCESS, new String[]{"Success!"}));
         messages.add(new LanguageMessage(LanguageKeys.SALMON_RUN_HEADING, new String[]{"Mr. Grizz needs Salmon Eggs! These are your options."}));
         messages.add(new LanguageMessage(LanguageKeys.SETTING_LIST_TITLE, new String[]{"Available settings"}));
