@@ -142,7 +142,7 @@ public class StageEmbedService {
         challengeText.append(System.lineSeparator());
         challengeText.append("> ");
 
-        String regulation = stage.getRegulation().replaceAll("(<br />)+", System.lineSeparator()+"> ");
+        String regulation = stage.getRegulation().replaceAll("(<br />)+[^\\w\\d]+", System.lineSeparator()+"> ");
 
         challengeText.append(regulation);
 
