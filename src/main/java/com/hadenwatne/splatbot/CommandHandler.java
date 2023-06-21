@@ -38,6 +38,7 @@ public class CommandHandler {
 		commands.add(new Timezone());
 		commands.add(new TurfWar());
 		commands.add(new RandomWeapon());
+		commands.add(new XBattles());
 
 		// Send Discord the syntax we plan to use for slash commands.
 		updateSlashCommands();

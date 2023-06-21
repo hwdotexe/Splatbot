@@ -141,5 +141,6 @@ public class Language {
         messages.add(new LanguageMessage(LanguageKeys.TIMEZONE_SET, new String[]{"Your timezone is now `"+wildcard+"`! Commands you run will be shown in this timezone."}));
         messages.add(new LanguageMessage(LanguageKeys.TURF_WAR_HEADING, new String[]{"Here are the deets for Turf War battles!"}));
         messages.add(new LanguageMessage(LanguageKeys.WEAPON_SUGGESTIONS, new String[]{"I'm feeling like recommending the " + wildcard + " today.", "You could use more practice with the " + wildcard + ".", "Want to make it rain (with salt)? Try the " + wildcard + "", "Use the " + wildcard + ". I dare you.", "Callie would tell you that you suck at the " + wildcard + ".", "" + wildcard + " - The Great Callie has spoken!", "" + wildcard + ". Hands down.", "Nothing's fresher than the " + wildcard + "", "" + wildcard + " is love, " + wildcard + " is life.", "I mean, you could try the " + wildcard + ", but I'd be careful...", "Sheldon paid me to answer " + wildcard + ".", "Bada bada bada bada... " + wildcard + "!", "You think you've got what it takes to wield the " + wildcard + "?"}));
+        messages.add(new LanguageMessage(LanguageKeys.XBATTLES_HEADING, new String[]{"Raise your X Power in this challenging mode!"}));
     }
 }

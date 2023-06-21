@@ -5,6 +5,7 @@ import java.awt.*;
 public enum EmbedType {
     TURFWAR(new Color(61, 163, 60)),
     RANKED(new Color(226, 88, 29)),
+    XBATTLE(new Color(62, 216, 180)),
     SALMONRUN(new Color(216, 98, 62)),
     ERROR(new Color(195, 5, 19)),
     CHALLENGE(new Color(170, 23, 92)),

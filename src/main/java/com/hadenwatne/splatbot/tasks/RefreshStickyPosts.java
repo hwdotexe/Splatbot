@@ -1,10 +1,7 @@
 package com.hadenwatne.splatbot.tasks;
 
 import com.hadenwatne.splatbot.App;
-import com.hadenwatne.splatbot.commands.Anarchy;
-import com.hadenwatne.splatbot.commands.Command;
-import com.hadenwatne.splatbot.commands.SalmonRun;
-import com.hadenwatne.splatbot.commands.TurfWar;
+import com.hadenwatne.splatbot.commands.*;
 import com.hadenwatne.splatbot.enums.HTTPVerb;
 import com.hadenwatne.splatbot.enums.LogType;
 import com.hadenwatne.splatbot.enums.PostType;
@@ -69,6 +66,8 @@ public class RefreshStickyPosts {
 							stages = getTurfWarCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
 						} else if(stickyPost.getType() == PostType.ANARCHY) {
 							stages = getAnarchyCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
+						} else if(stickyPost.getType() == PostType.X_BATTLES) {
+							stages = getXBattlesCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
 						} else{
 							stages = getSalmonRunCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
 						}
@@ -111,6 +110,16 @@ public class RefreshStickyPosts {
 		for(Command c : App.Splatbot.getCommandHandler().getLoadedCommands()) {
 			if(c.getCommandStructure().getName().equals("salmonrun")) {
 				return (SalmonRun) c;
+			}
+		}
+
+		return null;
+	}
+
+	private XBattles getXBattlesCommand() {
+		for(Command c : App.Splatbot.getCommandHandler().getLoadedCommands()) {
+			if(c.getCommandStructure().getName().equals("xbattles")) {
+				return (XBattles) c;
 			}
 		}
 

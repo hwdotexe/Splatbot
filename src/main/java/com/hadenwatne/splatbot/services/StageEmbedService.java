@@ -1,9 +1,6 @@
 package com.hadenwatne.splatbot.services;
 
-import com.hadenwatne.splatbot.models.data.stages.RankedMode;
-import com.hadenwatne.splatbot.models.data.stages.RankedStages;
-import com.hadenwatne.splatbot.models.data.stages.SalmonRunStages;
-import com.hadenwatne.splatbot.models.data.stages.TurfWarStages;
+import com.hadenwatne.splatbot.models.data.stages.*;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.util.ArrayList;
@@ -78,6 +75,35 @@ public class StageEmbedService {
         }
 
         return new MessageEmbed.Field(timeHeader, modes.toString(), false);
+    }
+
+    public static MessageEmbed.Field XBattlesField(XStages stage, String timezone) {
+        Calendar start = Calendar.getInstance();
+        start.setTime(DataService.ParseDate(stage.getStartTime()));
+
+        Calendar end = Calendar.getInstance();
+        end.setTime(DataService.ParseDate(stage.getEndTime()));
+
+        start.setTimeZone(TimeZone.getTimeZone(timezone));
+        end.setTimeZone(TimeZone.getTimeZone(timezone));
+
+        String timeHeader = DataService.BuildTimeWindowString(start,end);
+        StringBuilder stages = new StringBuilder();
+
+        stages.append("__**");
+        stages.append(stage.getGameMode());
+        stages.append("**__");
+
+        for(String s : stage.getStages()) {
+            if(stages.length() > 0) {
+                stages.append(System.lineSeparator());
+            }
+
+            stages.append("• ");
+            stages.append(s);
+        }
+
+        return new MessageEmbed.Field(timeHeader, stages.toString(), false);
     }
 
     public static MessageEmbed.Field SalmonRunField(SalmonRunStages stage, String timezone) {

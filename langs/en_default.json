@@ -59,6 +59,12 @@
         "Bada bada bada bada... %WC%!",
         "You think you've got what it takes to wield the %WC%?"
       ]
+    },
+    {
+      "key": "XBATTLES_HEADING",
+      "values": [
+        "Raise your X Power in this challenging mode!"
+      ]
     }
   ],
   "errors": [
