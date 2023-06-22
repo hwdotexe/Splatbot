@@ -62,10 +62,8 @@ public class RefreshStickyPosts {
 		Calendar c = Calendar.getInstance();
 
 		c.setTime(new Date());
-		c.set(Calendar.SECOND, 0);
+		c.set(Calendar.SECOND, 5);
 		c.set(Calendar.MINUTE, 0);
-
-		c.add(Calendar.SECOND, 5);
 
 		if(c.get(Calendar.HOUR) % 2 == 0) {
 			c.add(Calendar.HOUR, 2);
