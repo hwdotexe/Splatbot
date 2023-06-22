@@ -44,13 +44,34 @@ public class RefreshStickyPosts {
 		}, execTime);
 	}
 
+	/*
+	Bug discovered:
+	[2023-6-21 14:59] [SYSTEM] 	Loaded xbattles
+	[2023-6-21 14:59] [SYSTEM] Command loading complete!
+	[2023-6-21 15:00] [SYSTEM] Sticky post refresh task ran.
+	[2023-6-21 15:40] [COMMAND] [x@x] challenge
+	[2023-6-21 15:43] [COMMAND] [x@x] anarchy
+	[2023-6-21 15:59] [SYSTEM] Cleared expired stage data.
+	[2023-6-21 16:00] [SYSTEM] Sticky post refresh task ran.
+	[2023-6-21 16:00] [SYSTEM] Sticky post refresh task ran.
+	[2023-6-21 16:00] [SYSTEM] Sticky post refresh task ran...
+	 */
+
 	public void runTimer() {
-		// Schedule the next run of this task based on Turf War since it changes every 2 hours.
-		Date nextRun = DataService.ParseDate(App.Splatbot.getStageData().getTurfWar().get(0).getEndTime());
+		// Schedule the next run of this task at the next even hour.
 		Calendar c = Calendar.getInstance();
 
-		c.setTime(nextRun);
+		c.setTime(new Date());
+		c.set(Calendar.SECOND, 0);
+		c.set(Calendar.MINUTE, 0);
+
 		c.add(Calendar.SECOND, 5);
+
+		if(c.get(Calendar.HOUR) % 2 == 0) {
+			c.add(Calendar.HOUR, 2);
+		}else{
+			c.add(Calendar.HOUR, 1);
+		}
 
 		// For each squid, check their sticky posts and execute the command using object data
 		for(Squid squid : App.Splatbot.getStorageService().getSquidController().getSquids()) {
