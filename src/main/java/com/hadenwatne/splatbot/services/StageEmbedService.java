@@ -182,4 +182,67 @@ public class StageEmbedService {
 
         return new MessageEmbed.Field(timeHeader, detail.toString(), false);
     }
+
+    public static MessageEmbed.Field SplatfestField(Splatfest fest, String timezone) {
+        Calendar start = Calendar.getInstance();
+        start.setTime(DataService.ParseDate(fest.getStartTime()));
+
+        Calendar end = Calendar.getInstance();
+        end.setTime(DataService.ParseDate(fest.getEndTime()));
+
+        start.setTimeZone(TimeZone.getTimeZone(timezone));
+        end.setTimeZone(TimeZone.getTimeZone(timezone));
+
+        String timeHeader = DataService.BuildTimeWindowString(start,end);
+        StringBuilder detail = new StringBuilder();
+
+        detail.append("__**");
+        detail.append(fest.getTitle());
+        detail.append("**__");
+        detail.append(" (");
+        detail.append(fest.getStatus());
+        detail.append(")");
+        detail.append(System.lineSeparator());
+        detail.append("**");
+        detail.append("• ");
+        detail.append(fest.getTeams().get(0));
+        detail.append(System.lineSeparator());
+        detail.append("• ");
+        detail.append(fest.getTeams().get(1));
+        detail.append(System.lineSeparator());
+        detail.append("• ");
+        detail.append(fest.getTeams().get(2));
+        detail.append("**");
+
+        StringBuilder weapons = new StringBuilder();
+
+        detail.append(weapons);
+
+        return new MessageEmbed.Field(timeHeader, detail.toString(), false);
+    }
+
+    public static MessageEmbed.Field SplatfestStageField(SplatfestStages stage, String timezone) {
+        Calendar start = Calendar.getInstance();
+        start.setTime(DataService.ParseDate(stage.getStartTime()));
+
+        Calendar end = Calendar.getInstance();
+        end.setTime(DataService.ParseDate(stage.getEndTime()));
+
+        start.setTimeZone(TimeZone.getTimeZone(timezone));
+        end.setTimeZone(TimeZone.getTimeZone(timezone));
+
+        String timeHeader = DataService.BuildTimeWindowString(start,end);
+        StringBuilder stages = new StringBuilder();
+
+        for(String s : stage.getStages()) {
+            if(stages.length() > 0) {
+                stages.append(System.lineSeparator());
+            }
+
+            stages.append("• ");
+            stages.append(s);
+        }
+
+        return new MessageEmbed.Field(timeHeader, stages.toString(), false);
+    }
 }

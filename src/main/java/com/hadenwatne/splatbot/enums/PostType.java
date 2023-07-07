@@ -5,5 +5,6 @@ public enum PostType {
     X_BATTLES,
     CHALLENGE,
     SALMON_RUN,
-    TURF_WAR
+    TURF_WAR,
+    SPLATFEST
 }

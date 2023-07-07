@@ -37,6 +37,12 @@
       ]
     },
     {
+      "key": "SPLATFEST_HEADING",
+      "values": [
+        "It's time to collect the Clout!"
+      ]
+    },
+    {
       "key": "TIMEZONE_SET",
       "values": [
         "Your timezone is now `%WC%`! Commands you run will be shown in this timezone."

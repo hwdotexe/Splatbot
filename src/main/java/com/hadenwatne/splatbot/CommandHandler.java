@@ -36,6 +36,7 @@ public class CommandHandler {
 		commands.add(new Dev());
 		commands.add(new Help());
 		commands.add(new SalmonRun());
+		commands.add(new SplatfestCmd());
 		commands.add(new Timezone());
 		commands.add(new TurfWar());
 		commands.add(new RandomWeapon());

@@ -44,19 +44,6 @@ public class RefreshStickyPosts {
 		}, execTime);
 	}
 
-	/*
-	Bug discovered:
-	[2023-6-21 14:59] [SYSTEM] 	Loaded xbattles
-	[2023-6-21 14:59] [SYSTEM] Command loading complete!
-	[2023-6-21 15:00] [SYSTEM] Sticky post refresh task ran.
-	[2023-6-21 15:40] [COMMAND] [x@x] challenge
-	[2023-6-21 15:43] [COMMAND] [x@x] anarchy
-	[2023-6-21 15:59] [SYSTEM] Cleared expired stage data.
-	[2023-6-21 16:00] [SYSTEM] Sticky post refresh task ran.
-	[2023-6-21 16:00] [SYSTEM] Sticky post refresh task ran.
-	[2023-6-21 16:00] [SYSTEM] Sticky post refresh task ran...
-	 */
-
 	public void runTimer() {
 		// Schedule the next run of this task at the next even hour.
 		Calendar c = Calendar.getInstance();
@@ -89,7 +76,9 @@ public class RefreshStickyPosts {
 							stages = getXBattlesCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
 						} else if(stickyPost.getType() == PostType.CHALLENGE) {
 							stages = getChallengeCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
-						} else{
+						} else if(stickyPost.getType() == PostType.SPLATFEST) {
+							stages = getSplatfestCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
+						}else {
 							stages = getSalmonRunCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
 						}
 
@@ -151,6 +140,16 @@ public class RefreshStickyPosts {
 		for(Command c : App.Splatbot.getCommandHandler().getLoadedCommands()) {
 			if(c.getCommandStructure().getName().equals("challenge")) {
 				return (Challenge) c;
+			}
+		}
+
+		return null;
+	}
+
+	private SplatfestCmd getSplatfestCommand() {
+		for(Command c : App.Splatbot.getCommandHandler().getLoadedCommands()) {
+			if(c.getCommandStructure().getName().equals("splatfest")) {
+				return (SplatfestCmd) c;
 			}
 		}
 
