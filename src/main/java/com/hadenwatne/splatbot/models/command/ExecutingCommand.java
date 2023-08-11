@@ -8,6 +8,7 @@ import com.hadenwatne.splatbot.services.MessageService;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 
 import java.io.File;
@@ -23,6 +24,7 @@ public class ExecutingCommand {
     private String subCommand;
     private ExecutingCommandArguments commandArguments;
     private InteractionHook hook;
+    private SlashCommandInteractionEvent event;
     private Message message;
 
     public ExecutingCommand(Language language, Squid squid) {
@@ -36,6 +38,14 @@ public class ExecutingCommand {
 
     public void setCommandName(String commandName) {
         this.commandName = commandName;
+    }
+
+    public void setEvent(SlashCommandInteractionEvent event) {
+        this.event = event;
+    }
+
+    public SlashCommandInteractionEvent getEvent() {
+        return event;
     }
 
     public Language getLanguage() {

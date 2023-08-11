@@ -133,7 +133,7 @@ public class FetchStageData extends TimerTask {
 			stageData.getSalmonRun().add(salmonRunStages);
 		}
 
-		// Splatfest data
+		// Splatfest stage data
 		for (int i = 0; i < splatfestRotation.length(); i++) {
 			JSONObject splatfestObj = splatfestRotation.getJSONObject(i);
 			SplatfestStages splatfestStages = new SplatfestStages(splatfestObj.getString("startTime"), splatfestObj.getString("endTime"));
@@ -175,10 +175,14 @@ public class FetchStageData extends TimerTask {
 		}
 	}
 
+	// Splatfest theme data
 	private void loadSplatfestData(StageData stageData, String region) {
 		String result = HTTPService.SendHTTPRequest(HTTPVerb.GET, "https://splatoon3.ink/data/festivals.json", null);
 		JSONObject json = new JSONObject(result).getJSONObject(region).getJSONObject("data").getJSONObject("festRecords");
 		JSONArray splatfestRecords = json.getJSONArray("nodes");
+
+		// Clear out old data.
+		stageData.getSplatFests().clear();
 
 		for (int i = 0; i < splatfestRecords.length(); i++) {
 			JSONObject splatfestObj = splatfestRecords.getJSONObject(i);

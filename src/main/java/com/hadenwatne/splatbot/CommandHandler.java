@@ -31,15 +31,17 @@ public class CommandHandler {
 
 		commands = new ArrayList<>();
 
+//		commands.add(new Alert());
 		commands.add(new Anarchy());
 		commands.add(new Challenge());
 		commands.add(new Dev());
 		commands.add(new Help());
+		commands.add(new RandomWeapon());
 		commands.add(new SalmonRun());
+//		commands.add(new Settings());
 		commands.add(new SplatfestCmd());
 		commands.add(new Timezone());
 		commands.add(new TurfWar());
-		commands.add(new RandomWeapon());
 		commands.add(new XBattles());
 
 		// Send Discord the syntax we plan to use for slash commands.

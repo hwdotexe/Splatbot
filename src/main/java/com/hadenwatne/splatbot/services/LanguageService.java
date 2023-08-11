@@ -54,7 +54,7 @@ public class LanguageService {
 
 	public Language getLangFor(Squid squid) {
 		if(squid != null){
-			Language l = getLang(squid.getSettingFor(BotSettingName.SERVER_LANG).getAsString());
+			Language l = defaultLanguage; //getLang(squid.getSettingFor(BotSettingName.SERVER_LANG).getAsString());
 
 			if(l == null){
 				return getDefaultLang();

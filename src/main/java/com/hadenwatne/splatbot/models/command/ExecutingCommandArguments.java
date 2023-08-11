@@ -4,6 +4,7 @@ import com.hadenwatne.splatbot.services.DataService;
 import com.hadenwatne.splatbot.services.LoggingService;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.entities.emoji.CustomEmoji;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 
 import java.util.LinkedHashMap;
@@ -119,7 +120,7 @@ public class ExecutingCommandArguments {
         return null;
     }
 
-    public Emoji getAsEmote(String key, Guild server) {
+    public CustomEmoji getAsEmote(String key, Guild server) {
         if(this.arguments.containsKey(key)) {
             try {
                 String id = stripID(getAsString(key));
