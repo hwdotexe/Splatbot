@@ -46,7 +46,7 @@ public class RandomWeapon extends Command {
         weaponDetails.append(System.lineSeparator());
 
         return response(EmbedType.TURFWAR)
-                .setDescription(executingCommand.getLanguage().getMsg(LanguageKeys.WEAPON_SUGGESTIONS, new String[]{randomWeapon.getName()}))
+                .setDescription(executingCommand.getLanguage().getMsg(LanguageKeys.WEAPON_SUGGESTIONS, new String[]{randomWeapon.getName(), randomWeapon.getName(), randomWeapon.getName()}))
                 .addField("Details", weaponDetails.toString(), false);
     }
 }
