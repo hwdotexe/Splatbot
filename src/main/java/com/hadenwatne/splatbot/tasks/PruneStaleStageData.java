@@ -27,12 +27,14 @@ public class PruneStaleStageData extends TimerTask {
 		Date now = new Date();
 
 		// Remove Stage objects that are in the past.
-		App.Splatbot.getStageData().getTurfWar().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
-		App.Splatbot.getStageData().getSalmonRun().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
-		App.Splatbot.getStageData().getRanked().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
-		App.Splatbot.getStageData().getChallengeEvents().removeIf(stageData -> DataService.ParseDate(stageData.getTimes().get(stageData.getTimes().size()-1).getEndTime()).before(now));
-		App.Splatbot.getStageData().getSplatfestStages().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
-		App.Splatbot.getStageData().getXRanked().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
+		if(App.Splatbot.getStageData() != null) {
+			App.Splatbot.getStageData().getTurfWar().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
+			App.Splatbot.getStageData().getSalmonRun().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
+			App.Splatbot.getStageData().getRanked().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
+			App.Splatbot.getStageData().getChallengeEvents().removeIf(stageData -> DataService.ParseDate(stageData.getTimes().get(stageData.getTimes().size() - 1).getEndTime()).before(now));
+			App.Splatbot.getStageData().getSplatfestStages().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
+			App.Splatbot.getStageData().getXRanked().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
+		}
 
 		LoggingService.Log(LogType.SYSTEM, "Cleared expired stage data.");
 	}

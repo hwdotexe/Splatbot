@@ -80,7 +80,7 @@ public class FetchStageData extends TimerTask {
 				for (int m = 0; m < rankedModes.length(); m++) {
 					JSONObject rObj = rankedModes.getJSONObject(m);
 					JSONArray rObjStages = rObj.getJSONArray("vsStages");
-					RankedMode rankedMode = new RankedMode(rObj.getJSONObject("vsRule").getString("name"), rObj.getString("mode"));
+					RankedMode rankedMode = new RankedMode(rObj.getJSONObject("vsRule").getString("name"), rObj.getString("bankaraMode"));
 
 					for (int s = 0; s < rObjStages.length(); s++) {
 						rankedMode.getStages().add(rObjStages.getJSONObject(s).getString("name"));
