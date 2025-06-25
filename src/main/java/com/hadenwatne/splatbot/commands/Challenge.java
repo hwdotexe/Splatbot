@@ -73,7 +73,7 @@ public class Challenge extends Command {
     }
 
     public EmbedBuilder BuildStageList(String timezone, Language language, boolean refreshing) {
-        List<ScheduleNode> challengeEvents = App.Splatbot.getStageData().getRegular().data.regularSchedules.nodes;
+        List<ScheduleNode> challengeEvents = App.Splatbot.getStageData().getRegular().data.eventSchedules.nodes;
 
         try {
             List<MessageEmbed.Field> fields = new ArrayList<>();

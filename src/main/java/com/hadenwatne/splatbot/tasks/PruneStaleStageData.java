@@ -30,11 +30,11 @@ public class PruneStaleStageData extends TimerTask {
 		// Remove Stage objects that are in the past.
 		if(App.Splatbot.getStageData() != null) {
 			GameSchedules schedules = App.Splatbot.getStageData().getRegular().data;
-			schedules.regularSchedules.nodes.removeIf(stageData -> DataService.ParseDate(stageData.endTime).before(now));
-			schedules.bankaraSchedules.nodes.removeIf(stageData -> DataService.ParseDate(stageData.endTime).before(now));
-			schedules.coopGroupingSchedule.regularSchedules.nodes.removeIf(stageData -> DataService.ParseDate(stageData.endTime).before(now));
-			schedules.eventSchedules.nodes.removeIf(stageData -> DataService.ParseDate(stageData.endTime).before(now));
-			schedules.xSchedules.nodes.removeIf(stageData -> DataService.ParseDate(stageData.endTime).before(now));
+//			schedules.regularSchedules.nodes.removeIf(stageData -> DataService.ParseDate(stageData.endTime).before(now));
+//			schedules.bankaraSchedules.nodes.removeIf(stageData -> DataService.ParseDate(stageData.endTime).before(now));
+//			schedules.coopGroupingSchedule.regularSchedules.nodes.removeIf(stageData -> DataService.ParseDate(stageData.endTime).before(now));
+//			schedules.eventSchedules.nodes.removeIf(stageData -> DataService.ParseDate(stageData.endTime).before(now));
+//			schedules.xSchedules.nodes.removeIf(stageData -> DataService.ParseDate(stageData.endTime).before(now));
 
 			// TODO: Splatfest ongoing stage records aren't being cleaned up.
 		}

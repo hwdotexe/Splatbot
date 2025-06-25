@@ -76,7 +76,7 @@ public class SalmonRun extends Command {
     }
 
     public EmbedBuilder BuildStageList(String timezone, Language language, boolean refreshing) {
-        List<ScheduleNode> salmonRun = App.Splatbot.getStageData().getRegular().data.regularSchedules.nodes;
+        List<ScheduleNode> salmonRun = App.Splatbot.getStageData().getRegular().data.coopGroupingSchedule.regularSchedules.nodes;
         List<MessageEmbed.Field> fields = new ArrayList<>();
 
         try {
