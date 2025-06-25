@@ -14,6 +14,7 @@ import com.hadenwatne.splatbot.models.data.Language;
 import com.hadenwatne.splatbot.models.data.Squid;
 import com.hadenwatne.splatbot.models.data.StickyPost;
 import com.hadenwatne.splatbot.models.data.stages.TurfWarStages;
+import com.hadenwatne.splatbot.models.gameData.schedules.ScheduleNode;
 import com.hadenwatne.splatbot.services.DataService;
 import com.hadenwatne.splatbot.services.LoggingService;
 import com.hadenwatne.splatbot.services.StageEmbedService;
@@ -73,7 +74,7 @@ public class TurfWar extends Command {
     }
 
     public EmbedBuilder BuildStageList(String timezone, Language language, boolean refreshing) {
-        List<TurfWarStages> tws = App.Splatbot.getStageData().getTurfWar();
+        List<ScheduleNode> tws = App.Splatbot.getStageData().getRegular().data.regularSchedules.nodes;
 
         try {
             List<MessageEmbed.Field> fields = new ArrayList<>();

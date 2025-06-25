@@ -8,6 +8,7 @@ public class ScheduleNode {
     public MatchSetting regularMatchSetting;
     public List<MatchSetting> bankaraMatchSettings;
     public MatchSetting xMatchSetting;
+    public MatchSetting festMatchSettings;
     public SalmonRunSetting setting;
     public ChallengeSetting leagueMatchSetting;
     public List<TimePeriod> timePeriods;

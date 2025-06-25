@@ -15,6 +15,7 @@ import com.hadenwatne.splatbot.models.data.Squid;
 import com.hadenwatne.splatbot.models.data.StickyPost;
 import com.hadenwatne.splatbot.models.data.stages.ChallengeEvent;
 import com.hadenwatne.splatbot.models.data.stages.RankedStages;
+import com.hadenwatne.splatbot.models.gameData.schedules.ScheduleNode;
 import com.hadenwatne.splatbot.services.DataService;
 import com.hadenwatne.splatbot.services.LoggingService;
 import com.hadenwatne.splatbot.services.StageEmbedService;
@@ -72,7 +73,7 @@ public class Challenge extends Command {
     }
 
     public EmbedBuilder BuildStageList(String timezone, Language language, boolean refreshing) {
-        List<ChallengeEvent> challengeEvents = App.Splatbot.getStageData().getChallengeEvents();
+        List<ScheduleNode> challengeEvents = App.Splatbot.getStageData().getRegular().data.regularSchedules.nodes;
 
         try {
             List<MessageEmbed.Field> fields = new ArrayList<>();

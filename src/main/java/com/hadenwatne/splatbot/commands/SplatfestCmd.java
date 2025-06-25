@@ -16,6 +16,8 @@ import com.hadenwatne.splatbot.models.data.StickyPost;
 import com.hadenwatne.splatbot.models.data.stages.RankedStages;
 import com.hadenwatne.splatbot.models.data.stages.Splatfest;
 import com.hadenwatne.splatbot.models.data.stages.SplatfestStages;
+import com.hadenwatne.splatbot.models.gameData.schedules.ScheduleNode;
+import com.hadenwatne.splatbot.models.gameData.splatfests.Festival;
 import com.hadenwatne.splatbot.services.DataService;
 import com.hadenwatne.splatbot.services.LoggingService;
 import com.hadenwatne.splatbot.services.StageEmbedService;
@@ -79,24 +81,19 @@ public class SplatfestCmd extends Command {
             now.setTimeZone(TimeZone.getTimeZone(timezone));
 
             EmbedBuilder builder = response(EmbedType.TURFWAR);
-            Splatfest fest = App.Splatbot.getStageData().getSplatFests().get(0);
+            Festival fest = App.Splatbot.getStageData().getSplatfests().US.data.festRecords.nodes.get(0);
 
             builder.addField(StageEmbedService.SplatfestField(fest, timezone));
             builder.setDescription(language.getMsg(LanguageKeys.SPLATFEST_HEADING));
-            builder.setThumbnail(fest.getThumbnail());
+            builder.setThumbnail(fest.image.url);
             builder.setFooter(DataService.BuildUpdatedTimestamp(now, refreshing));
 
-            if(App.Splatbot.getStageData().getSplatfestStages().size() > 0) {
-                List<SplatfestStages> festStages = App.Splatbot.getStageData().getSplatfestStages();
+            // Of the festSchedule nodes, only pick the ones that have fest data. Otherwise, there is no Splatfest running.
+            List<ScheduleNode> festStages = App.Splatbot.getStageData().getRegular().data.festSchedules.nodes.stream().filter(fs -> fs.festMatchSettings != null).toList();
 
-                for(int i=0; i<Math.min(5, festStages.size()); i++) {
-                    builder.addField(StageEmbedService.SplatfestStageField(festStages.get(i), timezone));
-                }
+            for(int i=0; i<Math.min(5, festStages.size()); i++) {
+                builder.addField(StageEmbedService.SplatfestStageField(festStages.get(i), timezone));
             }
-
-            // Add the previous fest
-//            Splatfest previousFest = App.Splatbot.getStageData().getSplatFests().get(1);
-//            builder.addField(StageEmbedService.SplatfestField(previousFest, timezone));
 
             return builder;
         } catch (Exception e) {

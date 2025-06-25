@@ -5,5 +5,6 @@ public class GameSchedules {
     public ScheduleContainer bankaraSchedules;
     public ScheduleContainer xSchedules;
     public ScheduleContainer eventSchedules;
+    public ScheduleContainer festSchedules;
     public SalmonRunContainer coopGroupingSchedule;
 }

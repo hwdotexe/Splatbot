@@ -16,7 +16,6 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import sun.rmi.runtime.Log;
 
 import java.util.*;
 

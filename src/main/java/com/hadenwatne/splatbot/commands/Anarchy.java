@@ -15,6 +15,7 @@ import com.hadenwatne.splatbot.models.data.Squid;
 import com.hadenwatne.splatbot.models.data.StickyPost;
 import com.hadenwatne.splatbot.models.data.stages.RankedMode;
 import com.hadenwatne.splatbot.models.data.stages.RankedStages;
+import com.hadenwatne.splatbot.models.gameData.schedules.ScheduleNode;
 import com.hadenwatne.splatbot.services.DataService;
 import com.hadenwatne.splatbot.services.LoggingService;
 import com.hadenwatne.splatbot.services.StageEmbedService;
@@ -74,7 +75,7 @@ public class Anarchy extends Command {
     }
 
     public EmbedBuilder BuildStageList(String timezone, Language language, boolean refreshing) {
-        List<RankedStages> ranked = App.Splatbot.getStageData().getRanked();
+        List<ScheduleNode> ranked = App.Splatbot.getStageData().getRegular().data.bankaraSchedules.nodes;
 
         try {
             List<MessageEmbed.Field> fields = new ArrayList<>();
