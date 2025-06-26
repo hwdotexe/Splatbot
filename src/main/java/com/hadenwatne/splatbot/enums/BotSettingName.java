@@ -2,8 +2,7 @@ package com.hadenwatne.splatbot.enums;
 
 public enum BotSettingName {
 	ALLOW_SETTINGS("Sets the role (other than Administrator) allowed to change bot settings."),
-	CREATE_ALERTS("Sets the role (other than Administrator) allowed to create automated server alerts."),
-	ALERT_CHANNEL("Sets the channel used to send automatic alerts.");
+	CREATE_ALERTS("Sets the role (other than Administrator) allowed to create automated server alerts.");
 
 	private final String description;
 

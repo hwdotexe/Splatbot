@@ -5,15 +5,16 @@ import com.hadenwatne.splatbot.commandbuilder.CommandBuilder;
 import com.hadenwatne.splatbot.commandbuilder.CommandParameter;
 import com.hadenwatne.splatbot.commandbuilder.CommandStructure;
 import com.hadenwatne.splatbot.commandbuilder.ParameterType;
-import com.hadenwatne.splatbot.enums.*;
+import com.hadenwatne.splatbot.enums.BotSettingName;
+import com.hadenwatne.splatbot.enums.EmbedType;
+import com.hadenwatne.splatbot.enums.ErrorKeys;
+import com.hadenwatne.splatbot.enums.LanguageKeys;
 import com.hadenwatne.splatbot.models.command.ExecutingCommand;
 import com.hadenwatne.splatbot.models.command.ExecutingCommandArguments;
 import com.hadenwatne.splatbot.models.data.BotSetting;
 import com.hadenwatne.splatbot.models.data.Language;
 import com.hadenwatne.splatbot.models.data.Squid;
-import com.hadenwatne.splatbot.models.data.StickyPost;
-import com.hadenwatne.splatbot.models.data.stages.RankedStages;
-import com.hadenwatne.splatbot.services.*;
+import com.hadenwatne.splatbot.services.SplatbotService;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
@@ -23,13 +24,7 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.entities.emoji.CustomEmoji;
-import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.InteractionHook;
-import net.dv8tion.jda.api.interactions.components.LayoutComponent;
-import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.interactions.modals.Modal;
-
-import java.util.*;
 
 public class Settings extends Command {
     public Settings() {

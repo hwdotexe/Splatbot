@@ -2,9 +2,7 @@ package com.hadenwatne.splatbot.models.data;
 
 import net.dv8tion.jda.api.entities.Activity.ActivityType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class GiantSquid {
 	private HashMap<String, ActivityType> statuses;

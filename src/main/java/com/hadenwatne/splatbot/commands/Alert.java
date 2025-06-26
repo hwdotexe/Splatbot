@@ -1,27 +1,22 @@
 package com.hadenwatne.splatbot.commands;
 
-import com.hadenwatne.splatbot.App;
 import com.hadenwatne.splatbot.commandbuilder.CommandBuilder;
 import com.hadenwatne.splatbot.commandbuilder.CommandParameter;
 import com.hadenwatne.splatbot.commandbuilder.CommandStructure;
 import com.hadenwatne.splatbot.commandbuilder.ParameterType;
+import com.hadenwatne.splatbot.enums.AlertType;
 import com.hadenwatne.splatbot.enums.BotSettingName;
 import com.hadenwatne.splatbot.enums.EmbedType;
 import com.hadenwatne.splatbot.enums.ErrorKeys;
-import com.hadenwatne.splatbot.factories.EmbedFactory;
 import com.hadenwatne.splatbot.models.command.ExecutingCommand;
 import com.hadenwatne.splatbot.models.command.ExecutingCommandArguments;
 import com.hadenwatne.splatbot.models.data.BotSetting;
+import com.hadenwatne.splatbot.models.data.ConfiguredAlert;
 import com.hadenwatne.splatbot.models.data.Squid;
-import com.hadenwatne.splatbot.services.LanguageService;
-import com.hadenwatne.splatbot.services.PaginationService;
 import com.hadenwatne.splatbot.services.SplatbotService;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.MessageEmbed;
-
-import java.util.ArrayList;
-import java.util.List;
+import net.dv8tion.jda.api.entities.channel.ChannelType;
 
 public class Alert extends Command {
 	public Alert() {
@@ -35,10 +30,16 @@ public class Alert extends Command {
 
 	@Override
 	protected CommandStructure buildCommandStructure() {
+		CommandParameter alertType = new CommandParameter("alertType", "The game mode to create an alert for", ParameterType.SELECTION);
+
+		for (AlertType r : AlertType.values()) {
+			alertType.addSelectionOptions(r.name());
+		}
+
 		return CommandBuilder.Create("alert", "Configure alerts for in-game events.")
 				.addParameters(
-						new CommandParameter("type", "The command you need help with", ParameterType.STRING, false)
-								.setExample("turfwar")
+						alertType
+						.setExample("SPLATFEST")
 				)
 				.build();
 	}
@@ -50,9 +51,32 @@ public class Alert extends Command {
 		BotSetting canCreateAlerts = squid.getSettingFor(BotSettingName.CREATE_ALERTS);
 
 		if (SplatbotService.CheckUserPermission(executingCommand.getServer(), canCreateAlerts, executingCommand.getAuthorMember())) {
-			// TODO: alerts for splatfest announcements, others as they become necessary?
+			if(executingCommand.getChannel().getType() == ChannelType.TEXT) {
+				AlertType alertType = AlertType.valueOf(args.getAsString("alertType"));
+				long channelID = executingCommand.getChannel().getIdLong();
 
-			return response(EmbedType.INFO);
+				// Timezone settings.
+				String timezone = "America/New_York";
+
+				if(executingCommand.getServer() != null) {
+					timezone = executingCommand.getSquid().getUserTimezones().getOrDefault(executingCommand.getAuthorUser().getIdLong(), timezone);
+				}
+
+				if(squid.getAlerts().stream().noneMatch(a -> a.getChannel() == channelID && a.getType() == alertType)) {
+					ConfiguredAlert newAlert = new ConfiguredAlert(alertType, executingCommand.getChannel().getIdLong(), timezone);
+
+					squid.getAlerts().add(newAlert);
+
+					return response(EmbedType.INFO)
+							.setDescription("The new alert was created successfully!");
+				}
+
+				return response(EmbedType.ERROR, ErrorKeys.ALREADY_EXISTS.name())
+						.setDescription(executingCommand.getLanguage().getError(ErrorKeys.ALREADY_EXISTS));
+			}
+
+			return response(EmbedType.ERROR, ErrorKeys.WRONG_CHANNEL_TYPE.name())
+					.setDescription(executingCommand.getLanguage().getError(ErrorKeys.WRONG_CHANNEL_TYPE));
 		} else {
 			return response(EmbedType.ERROR, ErrorKeys.NO_PERMISSION_USER.name())
 					.setDescription(executingCommand.getLanguage().getError(ErrorKeys.NO_PERMISSION_USER));

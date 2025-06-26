@@ -1,8 +1,7 @@
 package com.hadenwatne.splatbot.enums;
 
-import com.google.gson.annotations.SerializedName;
-
 public enum ErrorKeys {
+	ALREADY_EXISTS,
 	BOT_ERROR,
 	CANNOT_DELETE,
 	CHANNEL_NOT_FOUND,
@@ -15,5 +14,6 @@ public enum ErrorKeys {
 	PERMISSION_MISSING,
 	RESERVED_WORD,
 	SETTING_VALUE_INVALID,
+	WRONG_CHANNEL_TYPE,
 	WRONG_USAGE
 }

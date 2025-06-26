@@ -119,6 +119,7 @@ public class Language {
     }
 
     private void populateDefaultValues() {
+        errors.add(new LanguageError(ErrorKeys.ALREADY_EXISTS, new String[]{"That type of alert already exists in this channel!"}));
         errors.add(new LanguageError(ErrorKeys.BOT_ERROR, new String[]{"There was an internal error, and your request did not complete."}));
         errors.add(new LanguageError(ErrorKeys.CANNOT_DELETE, new String[]{"Sorry, I can't let you delete that. It's very precious to me."}));
         errors.add(new LanguageError(ErrorKeys.CHANNEL_NOT_FOUND, new String[]{"I can't find the correct channel for that."}));
@@ -131,6 +132,7 @@ public class Language {
         errors.add(new LanguageError(ErrorKeys.PERMISSION_MISSING, new String[]{wildcard+" requires the following permissions in order to process that command: "+linebreak+wildcard}));
         errors.add(new LanguageError(ErrorKeys.RESERVED_WORD, new String[]{"It looks like you tried to use a reserved word. Try a different one!"}));
         errors.add(new LanguageError(ErrorKeys.SETTING_VALUE_INVALID, new String[]{"The value you provided is invalid. Please try again."}));
+        errors.add(new LanguageError(ErrorKeys.WRONG_CHANNEL_TYPE, new String[]{"This command can only be run in a regular text channel."}));
         errors.add(new LanguageError(ErrorKeys.WRONG_USAGE, new String[]{"The command syntax you used is incorrect."}));
 
         messages.add(new LanguageMessage(LanguageKeys.ANARCHY_HEADING, new String[]{"Climb your way through the ranks in these upcoming matches!"}));

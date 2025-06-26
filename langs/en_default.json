@@ -81,6 +81,12 @@
   ],
   "errors": [
     {
+      "key": "ALREADY_EXISTS",
+      "values": [
+        "That type of alert already exists in this channel!"
+      ]
+    },
+    {
       "key": "BOT_ERROR",
       "values": [
         "There was an internal error, and your request did not complete."
@@ -150,6 +156,12 @@
       "key": "SETTING_VALUE_INVALID",
       "values": [
         "The value you provided is invalid. Please try again."
+      ]
+    },
+    {
+      "key": "WRONG_CHANNEL_TYPE",
+      "values": [
+        "This command can only be run in a regular text channel."
       ]
     },
     {

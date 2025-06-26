@@ -3,17 +3,16 @@ package com.hadenwatne.splatbot.tasks;
 import com.hadenwatne.splatbot.App;
 import com.hadenwatne.splatbot.enums.HTTPVerb;
 import com.hadenwatne.splatbot.enums.LogType;
-import com.hadenwatne.splatbot.models.data.stages.*;
 import com.hadenwatne.splatbot.models.gameData.SplatoonStageData;
 import com.hadenwatne.splatbot.models.gameData.schedules.GameData;
-import com.hadenwatne.splatbot.models.gameData.splatfests.USData;
 import com.hadenwatne.splatbot.models.gameData.splatfests.USFestival;
 import com.hadenwatne.splatbot.services.HTTPService;
 import com.hadenwatne.splatbot.services.LoggingService;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class FetchStageData extends TimerTask {
 	public FetchStageData() {

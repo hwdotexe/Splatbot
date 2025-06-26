@@ -31,7 +31,7 @@ public class CommandHandler {
 
 		commands = new ArrayList<>();
 
-//		commands.add(new Alert());
+		commands.add(new Alert());
 		commands.add(new Anarchy());
 		commands.add(new Challenge());
 		commands.add(new Dev());

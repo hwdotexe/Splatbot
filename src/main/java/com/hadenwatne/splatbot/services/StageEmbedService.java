@@ -1,13 +1,10 @@
 package com.hadenwatne.splatbot.services;
 
-import com.hadenwatne.splatbot.models.data.stages.*;
 import com.hadenwatne.splatbot.models.gameData.schedules.*;
 import com.hadenwatne.splatbot.models.gameData.splatfests.Festival;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.TimeZone;
 
 public class StageEmbedService {

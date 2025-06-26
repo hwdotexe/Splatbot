@@ -39,7 +39,6 @@ public class StorageService {
         List<BotSetting> settings = new ArrayList<>();
         settings.add(new BotSetting(BotSettingName.ALLOW_SETTINGS, BotSettingType.ROLE, "administrator"));
         settings.add(new BotSetting(BotSettingName.CREATE_ALERTS, BotSettingType.ROLE, "administrator"));
-        settings.add(new BotSetting(BotSettingName.ALERT_CHANNEL, BotSettingType.CHANNEL, "general"));
 
         return settings;
     }

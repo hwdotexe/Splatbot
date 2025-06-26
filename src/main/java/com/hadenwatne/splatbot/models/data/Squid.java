@@ -1,8 +1,8 @@
 package com.hadenwatne.splatbot.models.data;
 
 import com.hadenwatne.splatbot.App;
+import com.hadenwatne.splatbot.enums.AlertType;
 import com.hadenwatne.splatbot.enums.BotSettingName;
-import com.hadenwatne.splatbot.enums.PostType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +14,8 @@ public class Squid {
 	private boolean sentWelcome;
 	private HashMap<Long, String> userTimezones;
 	private List<StickyPost> stickyPosts;
+	private List<ConfiguredAlert> alerts;
+	private HashMap<AlertType, String> previousAlert;
 
 	public Squid(String gid) {
 		guildID = gid;
@@ -21,6 +23,8 @@ public class Squid {
 		sentWelcome = false;
 		userTimezones = new HashMap<>();
 		stickyPosts = new ArrayList<>();
+		alerts = new ArrayList<>();
+		previousAlert = new HashMap<>();
 
 		loadFirstRunDefaults();
 	}
@@ -39,6 +43,22 @@ public class Squid {
 		}
 
 		return userTimezones;
+	}
+
+	public List<ConfiguredAlert> getAlerts() {
+		if(alerts == null) {
+			alerts = new ArrayList<>();
+		}
+
+		return alerts;
+	}
+
+	public HashMap<AlertType, String> getPreviousAlert() {
+		if(previousAlert == null) {
+			previousAlert = new HashMap<>();
+		}
+
+		return previousAlert;
 	}
 
 	public boolean didSendWelcome(){

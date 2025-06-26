@@ -6,4 +6,5 @@ public class SalmonRunSetting {
     public SalmonRunBoss boss;
     public SalmonRunStage coopStage;
     public List<SalmonRunWeapon> weapons;
+    public String id;
 }

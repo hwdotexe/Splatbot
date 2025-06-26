@@ -13,9 +13,6 @@ import com.hadenwatne.splatbot.models.command.ExecutingCommand;
 import com.hadenwatne.splatbot.models.data.Language;
 import com.hadenwatne.splatbot.models.data.Squid;
 import com.hadenwatne.splatbot.models.data.StickyPost;
-import com.hadenwatne.splatbot.models.data.stages.RankedStages;
-import com.hadenwatne.splatbot.models.data.stages.Splatfest;
-import com.hadenwatne.splatbot.models.data.stages.SplatfestStages;
 import com.hadenwatne.splatbot.models.gameData.schedules.ScheduleNode;
 import com.hadenwatne.splatbot.models.gameData.splatfests.Festival;
 import com.hadenwatne.splatbot.services.DataService;
@@ -23,9 +20,11 @@ import com.hadenwatne.splatbot.services.LoggingService;
 import com.hadenwatne.splatbot.services.StageEmbedService;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
 
 public class SplatfestCmd extends Command {
     public SplatfestCmd() {
