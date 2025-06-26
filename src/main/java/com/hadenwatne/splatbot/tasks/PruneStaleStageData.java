@@ -1,16 +1,15 @@
 package com.hadenwatne.splatbot.tasks;
 
 import com.hadenwatne.splatbot.App;
-import com.hadenwatne.splatbot.enums.HTTPVerb;
 import com.hadenwatne.splatbot.enums.LogType;
-import com.hadenwatne.splatbot.models.data.stages.*;
+import com.hadenwatne.splatbot.models.gameData.schedules.GameSchedules;
 import com.hadenwatne.splatbot.services.DataService;
-import com.hadenwatne.splatbot.services.HTTPService;
 import com.hadenwatne.splatbot.services.LoggingService;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class PruneStaleStageData extends TimerTask {
 	public PruneStaleStageData() {
@@ -27,12 +26,15 @@ public class PruneStaleStageData extends TimerTask {
 		Date now = new Date();
 
 		// Remove Stage objects that are in the past.
-		App.Splatbot.getStageData().getTurfWar().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
-		App.Splatbot.getStageData().getSalmonRun().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
-		App.Splatbot.getStageData().getRanked().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
-		App.Splatbot.getStageData().getChallengeEvents().removeIf(stageData -> DataService.ParseDate(stageData.getTimes().get(stageData.getTimes().size()-1).getEndTime()).before(now));
-		App.Splatbot.getStageData().getSplatfestStages().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
-		App.Splatbot.getStageData().getXRanked().removeIf(stageData -> DataService.ParseDate(stageData.getEndTime()).before(now));
+		if(App.Splatbot.getStageData() != null) {
+			GameSchedules schedules = App.Splatbot.getStageData().getRegular().data;
+			schedules.regularSchedules.nodes.removeIf(stageData -> DataService.ParseDate(stageData.endTime).before(now));
+			schedules.bankaraSchedules.nodes.removeIf(stageData -> DataService.ParseDate(stageData.endTime).before(now));
+			schedules.coopGroupingSchedule.regularSchedules.nodes.removeIf(stageData -> DataService.ParseDate(stageData.endTime).before(now));
+			schedules.xSchedules.nodes.removeIf(stageData -> DataService.ParseDate(stageData.endTime).before(now));
+			schedules.festSchedules.nodes.removeIf(stageData -> DataService.ParseDate(stageData.endTime).before(now));
+			schedules.eventSchedules.nodes.removeIf(stageData -> DataService.ParseDate(stageData.timePeriods.get(stageData.timePeriods.size() -1).endTime).before(now));
+		}
 
 		LoggingService.Log(LogType.SYSTEM, "Cleared expired stage data.");
 	}

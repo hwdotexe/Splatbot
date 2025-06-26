@@ -35,7 +35,7 @@ public class SlashCommandListener extends ListenerAdapter {
             }
 
             event.deferReply().queue();
-            handleCommand(command, event.getHook(), commandText, squid);
+            handleCommand(command, event, commandText, squid);
         }
     }
 
@@ -62,13 +62,15 @@ public class SlashCommandListener extends ListenerAdapter {
         return sb.toString();
     }
 
-    private void handleCommand(Command command, InteractionHook hook, String commandText, Squid squid) {
+    private void handleCommand(Command command, SlashCommandInteractionEvent event, String commandText, Squid squid) {
         Language language = App.Splatbot.getLanguageService().getLangFor(squid);
+        InteractionHook hook = event.getHook();
         ExecutingCommand executingCommand = new ExecutingCommand(language, squid);
 
         if(command != null) {
             executingCommand.setCommandName(command.getCommandStructure().getName());
             executingCommand.setInteractionHook(hook);
+            executingCommand.setEvent(event);
 
             // Check that the bot has the necessary Discord permissions to process this command.
             if(executingCommand.getServer() != null) {

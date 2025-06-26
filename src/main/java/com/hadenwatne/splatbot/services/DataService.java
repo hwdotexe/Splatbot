@@ -2,9 +2,8 @@ package com.hadenwatne.splatbot.services;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DataService {
     public static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
@@ -58,7 +57,7 @@ public class DataService {
 
     public static Date ParseDate(String date) {
         try {
-            return sdf.parse(date);
+            return Date.from(Instant.parse(date));
         } catch (Exception e) {
             return null;
         }

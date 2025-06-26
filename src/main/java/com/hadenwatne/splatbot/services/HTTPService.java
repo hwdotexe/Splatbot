@@ -2,17 +2,12 @@ package com.hadenwatne.splatbot.services;
 
 import com.hadenwatne.splatbot.App;
 import com.hadenwatne.splatbot.enums.HTTPVerb;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class HTTPService {
     /**

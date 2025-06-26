@@ -2,23 +2,18 @@ package com.hadenwatne.splatbot.tasks;
 
 import com.hadenwatne.splatbot.App;
 import com.hadenwatne.splatbot.commands.*;
-import com.hadenwatne.splatbot.enums.HTTPVerb;
 import com.hadenwatne.splatbot.enums.LogType;
 import com.hadenwatne.splatbot.enums.PostType;
 import com.hadenwatne.splatbot.models.data.Squid;
 import com.hadenwatne.splatbot.models.data.StickyPost;
-import com.hadenwatne.splatbot.models.data.stages.*;
-import com.hadenwatne.splatbot.services.DataService;
-import com.hadenwatne.splatbot.services.HTTPService;
 import com.hadenwatne.splatbot.services.LoggingService;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import sun.rmi.runtime.Log;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
 
 public class RefreshStickyPosts {
 	public RefreshStickyPosts() {

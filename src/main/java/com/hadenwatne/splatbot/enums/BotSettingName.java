@@ -1,8 +1,8 @@
 package com.hadenwatne.splatbot.enums;
 
 public enum BotSettingName {
-	ALLOW_MODIFY("Sets the role (other than Administrator) allowed to use the Modify command."),
-	SERVER_LANG("Sets which Lang preset to use on this server.");
+	ALLOW_SETTINGS("Sets the role (other than Administrator) allowed to change bot settings."),
+	CREATE_ALERTS("Sets the role (other than Administrator) allowed to create automated server alerts.");
 
 	private final String description;
 

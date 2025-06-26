@@ -3,7 +3,6 @@ package com.hadenwatne.splatbot.commandbuilder;
 import com.hadenwatne.splatbot.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.*;
-import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 
 import java.util.List;
 import java.util.regex.Pattern;

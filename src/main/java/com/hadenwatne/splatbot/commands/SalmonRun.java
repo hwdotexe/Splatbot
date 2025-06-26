@@ -13,9 +13,7 @@ import com.hadenwatne.splatbot.models.command.ExecutingCommand;
 import com.hadenwatne.splatbot.models.data.Language;
 import com.hadenwatne.splatbot.models.data.Squid;
 import com.hadenwatne.splatbot.models.data.StickyPost;
-import com.hadenwatne.splatbot.models.data.stages.RankedMode;
-import com.hadenwatne.splatbot.models.data.stages.RankedStages;
-import com.hadenwatne.splatbot.models.data.stages.SalmonRunStages;
+import com.hadenwatne.splatbot.models.gameData.schedules.ScheduleNode;
 import com.hadenwatne.splatbot.services.DataService;
 import com.hadenwatne.splatbot.services.LoggingService;
 import com.hadenwatne.splatbot.services.StageEmbedService;
@@ -23,8 +21,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class SalmonRun extends Command {
@@ -75,7 +71,7 @@ public class SalmonRun extends Command {
     }
 
     public EmbedBuilder BuildStageList(String timezone, Language language, boolean refreshing) {
-        List<SalmonRunStages> salmonRun = App.Splatbot.getStageData().getSalmonRun();
+        List<ScheduleNode> salmonRun = App.Splatbot.getStageData().getRegular().data.coopGroupingSchedule.regularSchedules.nodes;
         List<MessageEmbed.Field> fields = new ArrayList<>();
 
         try {

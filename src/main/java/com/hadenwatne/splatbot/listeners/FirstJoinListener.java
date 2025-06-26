@@ -1,11 +1,9 @@
 package com.hadenwatne.splatbot.listeners;
 
 import com.hadenwatne.splatbot.App;
-import com.hadenwatne.splatbot.enums.BotSettingName;
 import com.hadenwatne.splatbot.enums.EmbedType;
 import com.hadenwatne.splatbot.enums.LogType;
 import com.hadenwatne.splatbot.factories.EmbedFactory;
-import com.hadenwatne.splatbot.models.data.BotSetting;
 import com.hadenwatne.splatbot.models.data.Squid;
 import com.hadenwatne.splatbot.services.LoggingService;
 import com.hadenwatne.splatbot.services.MessageService;
@@ -25,7 +23,7 @@ public class FirstJoinListener extends ListenerAdapter {
 		embedBuilder.setThumbnail(App.Splatbot.getBotAvatarUrl());
 		embedBuilder.setDescription("Woomy! "+name+" has joined the server!");
 
-		embedBuilder.addField(":bulb: Get Started", "To view a list of commands and general information, use `\\help`.", false);
+		embedBuilder.addField(":bulb: Get Started", "To view a list of commands and general information, use `/help`.", false);
 
 		welcomeMessage = embedBuilder;
 	}

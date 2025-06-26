@@ -2,9 +2,11 @@ package com.hadenwatne.splatbot.models.command;
 
 import com.hadenwatne.splatbot.services.DataService;
 import com.hadenwatne.splatbot.services.LoggingService;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
-import net.dv8tion.jda.api.entities.emoji.Emoji;
+import net.dv8tion.jda.api.entities.emoji.CustomEmoji;
 
 import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
@@ -119,7 +121,7 @@ public class ExecutingCommandArguments {
         return null;
     }
 
-    public Emoji getAsEmote(String key, Guild server) {
+    public CustomEmoji getAsEmote(String key, Guild server) {
         if(this.arguments.containsKey(key)) {
             try {
                 String id = stripID(getAsString(key));

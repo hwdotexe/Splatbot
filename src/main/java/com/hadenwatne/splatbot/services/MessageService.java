@@ -1,18 +1,15 @@
 package com.hadenwatne.splatbot.services;
 
 import com.hadenwatne.splatbot.enums.LogType;
-import com.hadenwatne.splatbot.models.command.ExecutingCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
-import net.dv8tion.jda.api.exceptions.PermissionException;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.utils.FileUpload;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.List;
 import java.util.function.Consumer;
 
 public class MessageService {

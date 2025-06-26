@@ -6,7 +6,7 @@ import com.hadenwatne.splatbot.listeners.FirstJoinListener;
 import com.hadenwatne.splatbot.listeners.SlashCommandListener;
 import com.hadenwatne.splatbot.models.data.GiantSquid;
 import com.hadenwatne.splatbot.models.data.Weapon;
-import com.hadenwatne.splatbot.models.data.stages.StageData;
+import com.hadenwatne.splatbot.models.gameData.SplatoonStageData;
 import com.hadenwatne.splatbot.services.LanguageService;
 import com.hadenwatne.splatbot.services.LoggingService;
 import com.hadenwatne.splatbot.services.RandomService;
@@ -16,7 +16,6 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.exceptions.InvalidTokenException;
 
-import javax.security.auth.login.LoginException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class Splatbot {
     private String botAvatarUrl;
     private CommandHandler commandHandler;
     private final StorageService storageService;
-    private StageData stageData;
+    private SplatoonStageData stageData;
     private List<Weapon> weapons;
 
     public Splatbot() {
@@ -44,7 +43,7 @@ public class Splatbot {
         return weapons;
     }
 
-    public StageData getStageData() {
+    public SplatoonStageData getStageData() {
         return stageData;
     }
 
@@ -52,7 +51,7 @@ public class Splatbot {
         this.weapons = weapons;
     }
 
-    public void setStageData(StageData stageData) {
+    public void setStageData(SplatoonStageData stageData) {
         this.stageData = stageData;
     }
 
@@ -94,6 +93,7 @@ public class Splatbot {
         new FetchWeaponData();
         new PruneStaleStageData();
         new RefreshStickyPosts();
+        new ProcessAlerts();
 
         // Set the bot name and avatar URL.
         this.botName = getJDA().getSelfUser().getName();

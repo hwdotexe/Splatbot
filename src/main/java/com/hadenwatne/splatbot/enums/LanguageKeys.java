@@ -1,7 +1,5 @@
 package com.hadenwatne.splatbot.enums;
 
-import com.google.gson.annotations.SerializedName;
-
 public enum LanguageKeys {
     ANARCHY_HEADING,
     CHALLENGE_HEADING,

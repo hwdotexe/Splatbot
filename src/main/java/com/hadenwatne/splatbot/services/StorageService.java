@@ -37,8 +37,8 @@ public class StorageService {
 
     private List<BotSetting> createDefaultSettings() {
         List<BotSetting> settings = new ArrayList<>();
-        settings.add(new BotSetting(BotSettingName.ALLOW_MODIFY, BotSettingType.ROLE, "administrator"));
-        settings.add(new BotSetting(BotSettingName.SERVER_LANG, BotSettingType.TEXT, LanguageService.DEFAULT_LANGUAGE));
+        settings.add(new BotSetting(BotSettingName.ALLOW_SETTINGS, BotSettingType.ROLE, "administrator"));
+        settings.add(new BotSetting(BotSettingName.CREATE_ALERTS, BotSettingType.ROLE, "administrator"));
 
         return settings;
     }

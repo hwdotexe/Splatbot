@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hadenwatne.splatbot.App;
 import com.hadenwatne.splatbot.JSONFileFilter;
-import com.hadenwatne.splatbot.enums.BotSettingName;
 import com.hadenwatne.splatbot.enums.ErrorKeys;
 import com.hadenwatne.splatbot.enums.LanguageKeys;
 import com.hadenwatne.splatbot.enums.LogType;
@@ -54,7 +53,7 @@ public class LanguageService {
 
 	public Language getLangFor(Squid squid) {
 		if(squid != null){
-			Language l = getLang(squid.getSettingFor(BotSettingName.SERVER_LANG).getAsString());
+			Language l = defaultLanguage; //getLang(squid.getSettingFor(BotSettingName.SERVER_LANG).getAsString());
 
 			if(l == null){
 				return getDefaultLang();

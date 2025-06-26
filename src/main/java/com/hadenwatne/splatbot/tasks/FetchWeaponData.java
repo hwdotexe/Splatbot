@@ -9,7 +9,9 @@ import com.hadenwatne.splatbot.services.LoggingService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TimerTask;
 
 public class FetchWeaponData extends TimerTask {
 	public FetchWeaponData() {
