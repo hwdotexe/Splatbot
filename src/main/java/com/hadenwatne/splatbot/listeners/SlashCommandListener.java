@@ -13,11 +13,15 @@ import com.hadenwatne.splatbot.services.MessageService;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SlashCommandListener extends ListenerAdapter {
 
@@ -91,8 +95,12 @@ public class SlashCommandListener extends ListenerAdapter {
                     EmbedBuilder embed = EmbedFactory.GetEmbed(EmbedType.ERROR, ErrorKeys.PERMISSION_MISSING.name())
                             .setDescription(language.getError(ErrorKeys.PERMISSION_MISSING, new String[]{App.Splatbot.getBotName(), noPerms.toString()}));
 
+                    List<EmbedBuilder> embeds = new ArrayList<>();
+
+                    embeds.add(embed);
+
                     try {
-                        MessageService.ReplyToMessage(hook, embed, false);
+                        MessageService.ReplyToMessage(hook, embeds, false);
                     } catch (InsufficientPermissionException e) {
                         MessageService.ReplyToMessage(hook, language.getError(ErrorKeys.PERMISSION_MISSING, new String[]{App.Splatbot.getBotName(), noPerms.toString()}), false);
                     } catch (Exception e) {
@@ -108,7 +116,11 @@ public class SlashCommandListener extends ListenerAdapter {
             EmbedBuilder embed = EmbedFactory.GetEmbed(EmbedType.ERROR, ErrorKeys.COMMAND_NOT_FOUND.name())
                     .setDescription(language.getError(ErrorKeys.COMMAND_NOT_FOUND));
 
-            MessageService.ReplyToMessage(hook, embed, false);
+            List<EmbedBuilder> embeds = new ArrayList<>();
+
+            embeds.add(embed);
+
+            MessageService.ReplyToMessage(hook, embeds, false);
         }
     }
 }

@@ -13,8 +13,11 @@ import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FirstJoinListener extends ListenerAdapter {
-	final EmbedBuilder welcomeMessage;
+	final List<EmbedBuilder> welcomeMessage;
 
 	public FirstJoinListener() {
 		EmbedBuilder embedBuilder = EmbedFactory.GetEmbed(EmbedType.TURFWAR, "Welcome");
@@ -25,7 +28,9 @@ public class FirstJoinListener extends ListenerAdapter {
 
 		embedBuilder.addField(":bulb: Get Started", "To view a list of commands and general information, use `/help`.", false);
 
-		welcomeMessage = embedBuilder;
+		welcomeMessage = new ArrayList<>();
+
+		welcomeMessage.add(embedBuilder);
 	}
 
 	@Override

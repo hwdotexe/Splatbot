@@ -40,17 +40,20 @@ public class Help extends Command {
 	}
 
 	@Override
-	public EmbedBuilder run (ExecutingCommand executingCommand) {
+	public List<EmbedBuilder> run (ExecutingCommand executingCommand) {
 		ExecutingCommandArguments args = executingCommand.getCommandArguments();
 		String commandHelp = args.getAsString("command");
 		EmbedBuilder embedBuilder = null;
+		List<EmbedBuilder> embed = new ArrayList<>();
 
 		if(commandHelp != null) {
 			embedBuilder = getCommandHelp(commandHelp);
 
 			if(embedBuilder == null) {
-				return response(EmbedType.ERROR)
-						.addField(ErrorKeys.COMMAND_NOT_FOUND.name(), executingCommand.getLanguage().getError(ErrorKeys.COMMAND_NOT_FOUND), false);
+				embed.add(response(EmbedType.ERROR)
+						.addField(ErrorKeys.COMMAND_NOT_FOUND.name(), executingCommand.getLanguage().getError(ErrorKeys.COMMAND_NOT_FOUND), false));
+
+				return embed;
 			}
 		} else {
 			List<String> cmds = new ArrayList<>();
@@ -78,7 +81,9 @@ public class Help extends Command {
 				"`[square brackets]` are **optional**\n" +
 				"`[items|in|a|list]` are **possible values**", false);
 
-		return embedBuilder;
+		embed.add(embedBuilder);
+
+		return embed;
 	}
 
 	private EmbedBuilder getCommandHelp(String commandHelp) {

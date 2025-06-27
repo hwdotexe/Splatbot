@@ -26,6 +26,9 @@ import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.entities.emoji.CustomEmoji;
 import net.dv8tion.jda.api.interactions.modals.Modal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Settings extends Command {
     public Settings() {
         super(true);
@@ -68,30 +71,36 @@ public class Settings extends Command {
     }
 
     @Override
-    public EmbedBuilder run(ExecutingCommand executingCommand) {
+    public List<EmbedBuilder> run(ExecutingCommand executingCommand) {
         Language language = executingCommand.getLanguage();
         Squid squid = executingCommand.getSquid();
         BotSetting canModify = squid.getSettingFor(BotSettingName.ALLOW_SETTINGS);
         Member member = executingCommand.getAuthorMember();
         Guild server = executingCommand.getServer();
         String subCommand = executingCommand.getSubCommand();
+        List<EmbedBuilder> embed = new ArrayList<>();
 
         // Disallow users if they don't have permission.
         if(!SplatbotService.CheckUserPermission(server, canModify, member)) {
-            return response(EmbedType.ERROR, ErrorKeys.NO_PERMISSION_USER.name())
-                    .setDescription(executingCommand.getLanguage().getError(ErrorKeys.NO_PERMISSION_USER));
+            embed.add(response(EmbedType.ERROR, ErrorKeys.NO_PERMISSION_USER.name())
+                    .setDescription(executingCommand.getLanguage().getError(ErrorKeys.NO_PERMISSION_USER)));
+
+            return embed;
         }
 
         switch (subCommand) {
             case "set":
-                return cmdSet(language, squid, server, executingCommand);
+                embed.add(cmdSet(language, squid, server, executingCommand));
+                break;
             case "view":
-                return cmdView(language, squid, server);
+                embed.add(cmdView(language, squid, server));
+                break;
             case "help":
-                return cmdHelp(squid, server, executingCommand.getCommandArguments());
+                embed.add(cmdHelp(squid, server, executingCommand.getCommandArguments()));
+                break;
         }
 
-        return null;
+        return embed;
     }
 
     private EmbedBuilder cmdView(Language language, Squid squid, Guild server) {

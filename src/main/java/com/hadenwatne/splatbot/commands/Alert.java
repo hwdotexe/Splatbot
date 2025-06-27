@@ -20,6 +20,8 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.ChannelType;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class Alert extends Command {
@@ -59,25 +61,30 @@ public class Alert extends Command {
 	}
 
 	@Override
-	public EmbedBuilder run (ExecutingCommand executingCommand) {
+	public List<EmbedBuilder> run (ExecutingCommand executingCommand) {
 		ExecutingCommandArguments args = executingCommand.getCommandArguments();
 		Squid squid = executingCommand.getSquid();
 		BotSetting canCreateAlerts = squid.getSettingFor(BotSettingName.CREATE_ALERTS);
 
-		if (SplatbotService.CheckUserPermission(executingCommand.getServer(), canCreateAlerts, executingCommand.getAuthorMember())) {
-			String subCommand = executingCommand.getSubCommand();
+		String subCommand = executingCommand.getSubCommand();
+		List<EmbedBuilder> e = new ArrayList<>();
 
+		if (SplatbotService.CheckUserPermission(executingCommand.getServer(), canCreateAlerts, executingCommand.getAuthorMember())) {
 			switch (subCommand) {
 				case "create":
-					return cmdCreate(squid, executingCommand);
+					e.add(cmdCreate(squid, executingCommand));
+					return e;
 				case "remove":
-					return cmdRemove(squid, executingCommand);
+					e.add(cmdRemove(squid, executingCommand));
+					return e;
 			}
 
 			return null;
 		} else {
-			return response(EmbedType.ERROR, ErrorKeys.NO_PERMISSION_USER.name())
-					.setDescription(executingCommand.getLanguage().getError(ErrorKeys.NO_PERMISSION_USER));
+			e.add(response(EmbedType.ERROR, ErrorKeys.NO_PERMISSION_USER.name())
+					.setDescription(executingCommand.getLanguage().getError(ErrorKeys.NO_PERMISSION_USER)));
+
+			return e;
 		}
 	}
 

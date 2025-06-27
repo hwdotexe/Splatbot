@@ -21,10 +21,7 @@ import com.hadenwatne.splatbot.services.StageEmbedService;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 
 public class SplatfestCmd extends Command {
     public SplatfestCmd() {
@@ -48,7 +45,7 @@ public class SplatfestCmd extends Command {
     }
 
     @Override
-    public EmbedBuilder run(ExecutingCommand executingCommand) {
+    public List<EmbedBuilder> run(ExecutingCommand executingCommand) {
         // Timezone settings.
         String timezone = "America/New_York";
 
@@ -58,7 +55,7 @@ public class SplatfestCmd extends Command {
 
         if(executingCommand.getCommandArguments().getAsBoolean("update")){
             if(executingCommand.getServer() != null) {
-                EmbedBuilder response = BuildStageList(timezone, executingCommand.getLanguage(), true);
+                List<EmbedBuilder> response = BuildStageList(timezone, executingCommand.getLanguage(), true);
                 Squid squid = executingCommand.getSquid();
                 String finalTimezone = timezone;
 
@@ -73,7 +70,9 @@ public class SplatfestCmd extends Command {
         return BuildStageList(timezone, executingCommand.getLanguage(), false);
     }
 
-    public EmbedBuilder BuildStageList(String timezone, Language language, boolean refreshing) {
+    public List<EmbedBuilder> BuildStageList(String timezone, Language language, boolean refreshing) {
+        List<EmbedBuilder> embed = new ArrayList<>();
+
         try {
             Calendar now = Calendar.getInstance();
             now.setTime(new Date());
@@ -94,12 +93,14 @@ public class SplatfestCmd extends Command {
                 builder.addField(StageEmbedService.SplatfestStageField(festStages.get(i), timezone));
             }
 
-            return builder;
+            embed.add(builder);
         } catch (Exception e) {
             LoggingService.LogException(e);
 
-            return response(EmbedType.ERROR)
-                    .addField(ErrorKeys.BOT_ERROR.name(), language.getError(ErrorKeys.BOT_ERROR), false);
+            embed.add(response(EmbedType.ERROR)
+                    .addField(ErrorKeys.BOT_ERROR.name(), language.getError(ErrorKeys.BOT_ERROR), false));
         }
+
+        return embed;
     }
 }

@@ -11,6 +11,9 @@ import com.hadenwatne.splatbot.services.RandomService;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RandomWeapon extends Command {
     public RandomWeapon() {
         super(true);
@@ -28,8 +31,9 @@ public class RandomWeapon extends Command {
     }
 
     @Override
-    public EmbedBuilder run(ExecutingCommand executingCommand) {
+    public List<EmbedBuilder> run(ExecutingCommand executingCommand) {
         Weapon randomWeapon = RandomService.GetRandomObjectFromList(App.Splatbot.getWeapons());
+        List<EmbedBuilder> embed = new ArrayList<>();
 
         StringBuilder weaponDetails = new StringBuilder();
 
@@ -45,8 +49,10 @@ public class RandomWeapon extends Command {
         weaponDetails.append(randomWeapon.getSpecialWeapon());
         weaponDetails.append(System.lineSeparator());
 
-        return response(EmbedType.TURFWAR)
+        embed.add(response(EmbedType.TURFWAR)
                 .setDescription(executingCommand.getLanguage().getMsg(LanguageKeys.WEAPON_SUGGESTIONS, new String[]{randomWeapon.getName(), randomWeapon.getName(), randomWeapon.getName()}))
-                .addField("Details", weaponDetails.toString(), false);
+                .addField("Details", weaponDetails.toString(), false));
+
+        return embed;
     }
 }

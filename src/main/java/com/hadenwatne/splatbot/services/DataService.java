@@ -12,7 +12,7 @@ public class DataService {
         Date now = new Date();
 
         if (now.after(start.getTime()) && now.before(end.getTime())) {
-            return "— Now —";
+            return ":arrow_forward: Now";
         }
 
         String startTime = (start.get(Calendar.HOUR) == 0 ? 12 : start.get(Calendar.HOUR)) + ":" + start.get(Calendar.MINUTE) + "0" + (start.get(Calendar.AM_PM) == Calendar.AM ? "a" : "p");

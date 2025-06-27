@@ -16,6 +16,8 @@ import net.dv8tion.jda.api.interactions.InteractionHook;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class ExecutingCommand {
@@ -159,7 +161,7 @@ public class ExecutingCommand {
         }
     }
 
-    public void reply(EmbedBuilder embedBuilder) {
+    public void reply(List<EmbedBuilder> embedBuilder) {
         if(embedBuilder != null) {
             if (hook != null) {
                 MessageService.ReplyToMessage(hook, embedBuilder, false);
@@ -171,7 +173,7 @@ public class ExecutingCommand {
         }
     }
 
-    public void reply(EmbedBuilder embedBuilder, boolean mention, Consumer<? super Message> onSuccess) {
+    public void reply(List<EmbedBuilder> embedBuilder, boolean mention, Consumer<? super Message> onSuccess) {
         if(embedBuilder != null) {
             if (hook != null) {
                 MessageService.ReplyToMessage(hook, embedBuilder, mention, onSuccess);
@@ -183,7 +185,7 @@ public class ExecutingCommand {
         }
     }
 
-    public void replyFile(InputStream file, String name, EmbedBuilder embedBuilder) {
+    public void replyFile(InputStream file, String name, List<EmbedBuilder> embedBuilder) {
         if(embedBuilder != null && file != null) {
             if (hook != null) {
                 MessageService.ReplyToMessage(hook, file, name, embedBuilder, false);
@@ -195,7 +197,7 @@ public class ExecutingCommand {
         }
     }
 
-    public void replyFile(File file, EmbedBuilder embedBuilder) {
+    public void replyFile(File file, List<EmbedBuilder> embedBuilder) {
         if(embedBuilder != null && file != null) {
             if (hook != null) {
                 MessageService.ReplyToMessage(hook, file, embedBuilder, false);

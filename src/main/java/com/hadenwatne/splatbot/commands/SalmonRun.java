@@ -45,7 +45,7 @@ public class SalmonRun extends Command {
     }
 
     @Override
-    public EmbedBuilder run(ExecutingCommand executingCommand) {
+    public List<EmbedBuilder> run(ExecutingCommand executingCommand) {
         // Timezone settings.
         String timezone = "America/New_York";
 
@@ -55,7 +55,7 @@ public class SalmonRun extends Command {
 
         if(executingCommand.getCommandArguments().getAsBoolean("update")){
             if(executingCommand.getServer() != null) {
-                EmbedBuilder response = BuildStageList(timezone, executingCommand.getLanguage(), true);
+                List<EmbedBuilder> response = BuildStageList(timezone, executingCommand.getLanguage(), true);
                 Squid squid = executingCommand.getSquid();
                 String finalTimezone = timezone;
 
@@ -70,33 +70,31 @@ public class SalmonRun extends Command {
         return BuildStageList(timezone, executingCommand.getLanguage(), false);
     }
 
-    public EmbedBuilder BuildStageList(String timezone, Language language, boolean refreshing) {
+    public List<EmbedBuilder> BuildStageList(String timezone, Language language, boolean refreshing) {
         List<ScheduleNode> salmonRun = App.Splatbot.getStageData().getRegular().data.coopGroupingSchedule.regularSchedules.nodes;
-        List<MessageEmbed.Field> fields = new ArrayList<>();
+        List<EmbedBuilder> embed = new ArrayList<>();
 
         try {
             Calendar now = Calendar.getInstance();
             now.setTime(new Date());
             now.setTimeZone(TimeZone.getTimeZone(timezone));
 
-            for(int i=0; i<Math.min(5, salmonRun.size()); i++) {
-                fields.add(StageEmbedService.SalmonRunField(salmonRun.get(i), timezone));
+            for(int i=0; i<Math.min(3, salmonRun.size()); i++) {
+                EmbedBuilder builder = response(EmbedType.SALMONRUN);
+
+                builder.addField(StageEmbedService.SalmonRunField(salmonRun.get(i), timezone));
+                builder.setThumbnail(salmonRun.get(i).setting.coopStage.image.url);
+                builder.setFooter(DataService.BuildUpdatedTimestamp(now, refreshing));
+
+                embed.add(builder);
             }
-
-            EmbedBuilder builder = response(EmbedType.SALMONRUN);
-
-            builder.setDescription(language.getMsg(LanguageKeys.SALMON_RUN_HEADING));
-            builder.setThumbnail("https://splatoon3.ink/assets/little-buddy.445c3c88.png");
-            builder.setFooter(DataService.BuildUpdatedTimestamp(now, refreshing));
-
-            fields.forEach(builder::addField);
-
-            return builder;
         } catch (Exception e) {
             LoggingService.LogException(e);
 
-            return response(EmbedType.ERROR)
-                    .addField(ErrorKeys.BOT_ERROR.name(), language.getError(ErrorKeys.BOT_ERROR), false);
+            embed.add(response(EmbedType.ERROR)
+                    .addField(ErrorKeys.BOT_ERROR.name(), language.getError(ErrorKeys.BOT_ERROR), false));
         }
+
+        return embed;
     }
 }

@@ -11,6 +11,9 @@ import com.hadenwatne.splatbot.models.command.ExecutingCommandArguments;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Timezone extends Command {
     public Timezone() {
         super(true);
@@ -53,13 +56,16 @@ public class Timezone extends Command {
     }
 
     @Override
-    public EmbedBuilder run(ExecutingCommand executingCommand) {
+    public List<EmbedBuilder> run(ExecutingCommand executingCommand) {
         ExecutingCommandArguments args = executingCommand.getCommandArguments();
         String timezone = args.getAsString("timezone");
+        List<EmbedBuilder> embed = new ArrayList<>();
 
         executingCommand.getSquid().getUserTimezones().put(executingCommand.getAuthorUser().getIdLong(), timezone);
 
-        return response(EmbedType.INFO)
-                .setDescription(executingCommand.getLanguage().getMsg(LanguageKeys.TIMEZONE_SET, new String[]{timezone}));
+        embed.add(response(EmbedType.INFO)
+                .setDescription(executingCommand.getLanguage().getMsg(LanguageKeys.TIMEZONE_SET, new String[]{timezone})));
+
+        return embed;
     }
 }

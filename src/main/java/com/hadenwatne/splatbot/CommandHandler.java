@@ -88,7 +88,10 @@ public class CommandHandler {
 				EmbedBuilder embed = EmbedFactory.GetEmbed(EmbedType.ERROR, "GUILD_REQUIRED")
 						.setDescription("That command must be run on a server.");
 
-				executingCommand.reply(embed);
+				List<EmbedBuilder> e = new ArrayList<>();
+				e.add(embed);
+
+				executingCommand.reply(e);
 
 				return;
 			}
@@ -103,7 +106,10 @@ public class CommandHandler {
 				embed.addField(field);
 			}
 
-			executingCommand.reply(embed);
+			List<EmbedBuilder> e = new ArrayList<>();
+			e.add(embed);
+
+			executingCommand.reply(e);
 		}
 	}
 
@@ -227,7 +233,10 @@ public class CommandHandler {
 					EmbedBuilder embedBuilder = EmbedFactory.GetEmbed(EmbedType.ERROR, "Error");
 					embedBuilder.addField(ErrorKeys.BOT_ERROR.name(), executingCommand.getLanguage().getError(ErrorKeys.BOT_ERROR), false);
 
-					executingCommand.reply(embedBuilder);
+					List<EmbedBuilder> e = new ArrayList<>();
+					e.add(embedBuilder);
+
+					executingCommand.reply(e);
 					LoggingService.LogException(exception);
 
 					return null;

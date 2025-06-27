@@ -18,7 +18,9 @@ import net.dv8tion.jda.api.entities.Activity.ActivityType;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,7 +59,9 @@ public class Dev extends Command {
 	}
 
 	@Override
-	public EmbedBuilder run (ExecutingCommand executingCommand) {
+	public List<EmbedBuilder> run (ExecutingCommand executingCommand) {
+		List<EmbedBuilder> embed = new ArrayList<>();
+
 		if (executingCommand.getChannel() instanceof PrivateChannel) {
 			if (executingCommand.getAuthorUser().getId().equals(App.Splatbot.getStorageService().getGiantSquid().getBotAdminID())) {
 				String subCommand = executingCommand.getCommandArguments().getAsString("subCommand");
@@ -65,38 +69,47 @@ public class Dev extends Command {
 
 				switch (subCommand.toLowerCase()) {
 					case "addstatus":
-						return addStatus(commandData);
+						embed.add(addStatus(commandData));
+						break;
 					case "getguilds":
-						return getGuilds();
+						embed.add(getGuilds());
+						break;
 					case "getcommandstats":
-						return getCommandStats();
+						embed.add(getCommandStats());
+						break;
 					case "clearcommandstats":
 						clearCommandStats();
 
-						return response(EmbedType.INFO)
-								.setDescription("Command statistics cleared!");
+						embed.add(response(EmbedType.INFO)
+								.setDescription("Command statistics cleared!"));
+
+						break;
 					case "leave":
 						leave(commandData);
 
-						return response(EmbedType.INFO)
-								.setDescription(App.Splatbot.getBotName()+" is queued to leave the server!");
+						embed.add(response(EmbedType.INFO)
+								.setDescription(App.Splatbot.getBotName()+" is queued to leave the server!"));
+
+						break;
 					case "savebrains":
 						saveBrains();
 
-						return response(EmbedType.INFO)
-								.setDescription("All brains were saved!");
+						embed.add(response(EmbedType.INFO)
+								.setDescription("All brains were saved!"));
+
+						break;
 					default:
-						return response(EmbedType.ERROR)
-								.setDescription("That command wasn't recognized!");
+						embed.add(response(EmbedType.ERROR)
+								.setDescription("That command wasn't recognized!"));
 				}
 			} else {
-				return response(EmbedType.ERROR)
+				embed.add(response(EmbedType.ERROR)
 						.setDescription("You cannot use the Developer command! This is used for bot maintenance tasks, and is restricted " +
-								"to the bot developer.");
+								"to the bot developer."));
 			}
 		}
 
-		return null;
+		return embed;
 	}
 
 	private EmbedBuilder addStatus(String args) {

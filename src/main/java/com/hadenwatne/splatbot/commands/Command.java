@@ -55,7 +55,7 @@ public abstract class Command {
         return EmbedFactory.GetEmbed(type, this.commandStructure.getName(), subLevel);
     }
 
-    public abstract EmbedBuilder run(ExecutingCommand executingCommand);
+    public abstract List<EmbedBuilder> run(ExecutingCommand executingCommand);
 
     public CommandStructure getCommandStructure() {
         return this.commandStructure;

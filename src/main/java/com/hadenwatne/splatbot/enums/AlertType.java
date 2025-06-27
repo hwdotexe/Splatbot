@@ -2,7 +2,7 @@ package com.hadenwatne.splatbot.enums;
 
 public enum AlertType {
 //    BIG_RUN,
-//    CHALLENGE,
+    CHALLENGE,
 //    EGGSTRA_WORK,
     SPLATFEST
 }

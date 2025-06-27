@@ -45,7 +45,7 @@ public class Anarchy extends Command {
     }
 
     @Override
-    public EmbedBuilder run(ExecutingCommand executingCommand) {
+    public List<EmbedBuilder> run(ExecutingCommand executingCommand) {
         // Timezone settings.
         String timezone = "America/New_York";
 
@@ -55,7 +55,7 @@ public class Anarchy extends Command {
 
         if(executingCommand.getCommandArguments().getAsBoolean("update")){
             if(executingCommand.getServer() != null) {
-                EmbedBuilder response = BuildStageList(timezone, executingCommand.getLanguage(), true);
+                List<EmbedBuilder> response = BuildStageList(timezone, executingCommand.getLanguage(), true);
                 Squid squid = executingCommand.getSquid();
                 String finalTimezone = timezone;
 
@@ -70,8 +70,9 @@ public class Anarchy extends Command {
         return BuildStageList(timezone, executingCommand.getLanguage(), false);
     }
 
-    public EmbedBuilder BuildStageList(String timezone, Language language, boolean refreshing) {
+    public List<EmbedBuilder> BuildStageList(String timezone, Language language, boolean refreshing) {
         List<ScheduleNode> ranked = App.Splatbot.getStageData().getRegular().data.bankaraSchedules.nodes;
+        List<EmbedBuilder> embed = new ArrayList<>();
 
         try {
             List<MessageEmbed.Field> fields = new ArrayList<>();
@@ -91,12 +92,14 @@ public class Anarchy extends Command {
 
             fields.forEach(builder::addField);
 
-            return builder;
+            embed.add(builder);
         } catch (Exception e) {
             LoggingService.LogException(e);
 
-            return response(EmbedType.ERROR)
-                    .addField(ErrorKeys.BOT_ERROR.name(), language.getError(ErrorKeys.BOT_ERROR), false);
+            embed.add(response(EmbedType.ERROR)
+                    .addField(ErrorKeys.BOT_ERROR.name(), language.getError(ErrorKeys.BOT_ERROR), false));
         }
+
+        return embed;
     }
 }

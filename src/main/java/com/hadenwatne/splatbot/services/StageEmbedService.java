@@ -155,14 +155,7 @@ public class StageEmbedService {
         start.setTimeZone(TimeZone.getTimeZone(timezone));
         end.setTimeZone(TimeZone.getTimeZone(timezone));
 
-        String timeHeader = DataService.BuildTimeWindowString(start,end);
-        StringBuilder detail = new StringBuilder();
-
-        detail.append("__**");
-        detail.append(stage.setting.coopStage.name);
-        detail.append("**__");
-        detail.append(System.lineSeparator());
-
+        String timeHeader = DataService.BuildTimeWindowString(start,end) + " — " + stage.setting.coopStage.name;
         StringBuilder weapons = new StringBuilder();
 
         for(SalmonRunWeapon w : stage.setting.weapons) {
@@ -174,9 +167,7 @@ public class StageEmbedService {
             weapons.append(w.name);
         }
 
-        detail.append(weapons);
-
-        return new MessageEmbed.Field(timeHeader, detail.toString(), false);
+        return new MessageEmbed.Field(timeHeader, weapons.toString(), false);
     }
 
     public static MessageEmbed.Field SplatfestField(Festival fest, String timezone) {

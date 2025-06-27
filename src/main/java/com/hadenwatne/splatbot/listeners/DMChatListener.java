@@ -15,6 +15,9 @@ import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DMChatListener extends ListenerAdapter {
 
 	@Override
@@ -52,7 +55,11 @@ public class DMChatListener extends ListenerAdapter {
 			EmbedBuilder embed = EmbedFactory.GetEmbed(EmbedType.ERROR, ErrorKeys.COMMAND_NOT_FOUND.name())
 					.setDescription(language.getError(ErrorKeys.COMMAND_NOT_FOUND));
 
-			MessageService.ReplyToMessage(message, embed, false);
+			List<EmbedBuilder> e = new ArrayList<>();
+
+			e.add(embed);
+
+			MessageService.ReplyToMessage(message, e, false);
 		}
 	}
 }

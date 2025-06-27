@@ -9,10 +9,12 @@ import com.hadenwatne.splatbot.models.data.StickyPost;
 import com.hadenwatne.splatbot.services.LoggingService;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 
 public class RefreshStickyPosts {
@@ -61,7 +63,7 @@ public class RefreshStickyPosts {
 				try {
 					TextChannel channel = guild.getTextChannelById(stickyPost.getChannelID());
 					channel.retrieveMessageById(stickyPost.getMessageID()).queue(message -> {
-						EmbedBuilder stages;
+						List<EmbedBuilder> stages;
 
 						if(stickyPost.getType() == PostType.TURF_WAR) {
 							stages = getTurfWarCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
@@ -77,7 +79,9 @@ public class RefreshStickyPosts {
 							stages = getSalmonRunCommand().BuildStageList(stickyPost.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), true);
 						}
 
-						message.editMessageEmbeds(stages.build()).queue();
+						List<MessageEmbed> embeds = stages.stream().map(EmbedBuilder::build).toList();
+
+						message.editMessageEmbeds(embeds).queue();
 					});
 				} catch (Exception e) {
 					squid.getStickyPosts().remove(stickyPost);

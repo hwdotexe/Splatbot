@@ -1,6 +1,7 @@
 package com.hadenwatne.splatbot.tasks;
 
 import com.hadenwatne.splatbot.App;
+import com.hadenwatne.splatbot.commands.Challenge;
 import com.hadenwatne.splatbot.commands.Command;
 import com.hadenwatne.splatbot.commands.SplatfestCmd;
 import com.hadenwatne.splatbot.enums.AlertType;
@@ -11,12 +12,10 @@ import com.hadenwatne.splatbot.models.gameData.SplatoonStageData;
 import com.hadenwatne.splatbot.services.LoggingService;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class ProcessAlerts extends TimerTask {
 	public ProcessAlerts() {
@@ -48,14 +47,43 @@ public class ProcessAlerts extends TimerTask {
 
 						try {
 							TextChannel channel = guild.getTextChannelById(alert.getChannel());
-							EmbedBuilder stageList = getSplatfestCommand().BuildStageList(alert.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), false);
+							List<EmbedBuilder> stageList = getSplatfestCommand().BuildStageList(alert.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), false);
+							List<MessageEmbed> embeds = stageList.stream().map(EmbedBuilder::build).toList();
 
-							channel.sendMessageEmbeds(stageList.build()).queue();
+							channel.sendMessageEmbeds(embeds).queue();
 
 							squid.getPreviousAlert().put(alert.getType(), splatfestID);
 						} catch (Exception ignored){
 
 						}
+
+						continue;
+					}
+
+					if(alert.getType() == AlertType.CHALLENGE) {
+						String challengeID = stageData.getRegular().data.eventSchedules.nodes.get(0).leagueMatchSetting.leagueMatchEvent.id;
+
+						if (squid.getPreviousAlert().containsKey(alert.getType())) {
+							if (squid.getPreviousAlert().get(alert.getType()).equals(challengeID)) {
+								continue;
+							}
+						}
+
+						Guild guild = App.Splatbot.getJDA().getGuildById(squid.getGuildID());
+
+						try {
+							TextChannel channel = guild.getTextChannelById(alert.getChannel());
+							List<EmbedBuilder> stageList = getChallengeCommand().BuildStageList(alert.getTimezone(), App.Splatbot.getLanguageService().getDefaultLang(), false);
+							List<MessageEmbed> embeds = stageList.stream().map(EmbedBuilder::build).toList();
+
+							channel.sendMessageEmbeds(embeds).queue();
+
+							squid.getPreviousAlert().put(alert.getType(), challengeID);
+						} catch (Exception ignored){
+
+						}
+
+						continue;
 					}
 				}
 			}
@@ -68,6 +96,16 @@ public class ProcessAlerts extends TimerTask {
 		for(Command c : App.Splatbot.getCommandHandler().getLoadedCommands()) {
 			if(c.getCommandStructure().getName().equals("splatfest")) {
 				return (SplatfestCmd) c;
+			}
+		}
+
+		return null;
+	}
+
+	private Challenge getChallengeCommand() {
+		for(Command c : App.Splatbot.getCommandHandler().getLoadedCommands()) {
+			if(c.getCommandStructure().getName().equals("challenge")) {
+				return (Challenge) c;
 			}
 		}
 
