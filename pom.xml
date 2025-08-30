@@ -6,7 +6,7 @@
 
     <groupId>com.hadenwatne</groupId>
     <artifactId>Splatbot</artifactId>
-    <version>1.0.9-1b</version>
+    <version>1.0.9-2b</version>
     <packaging>jar</packaging>
 
     <name>Splatbot</name>

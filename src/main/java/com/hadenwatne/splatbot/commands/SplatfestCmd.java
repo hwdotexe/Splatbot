@@ -37,10 +37,6 @@ public class SplatfestCmd extends Command {
     protected CommandStructure buildCommandStructure() {
         return CommandBuilder.Create("splatfest", "Get details about Splatfests.")
                 .addAlias("a")
-                .addParameters(
-                        new CommandParameter("update", "Whether this post should auto-update", ParameterType.BOOLEAN, false)
-                                .setExample("true")
-                )
                 .build();
     }
 
@@ -51,20 +47,6 @@ public class SplatfestCmd extends Command {
 
         if(executingCommand.getServer() != null) {
             timezone = executingCommand.getSquid().getUserTimezones().getOrDefault(executingCommand.getAuthorUser().getIdLong(), timezone);
-        }
-
-        if(executingCommand.getCommandArguments().getAsBoolean("update")){
-            if(executingCommand.getServer() != null) {
-                List<EmbedBuilder> response = BuildStageList(timezone, executingCommand.getLanguage(), true);
-                Squid squid = executingCommand.getSquid();
-                String finalTimezone = timezone;
-
-                executingCommand.reply(response, false, message -> {
-                    squid.getStickyPosts().add(new StickyPost(message.getChannel().getIdLong(), message.getIdLong(), PostType.SPLATFEST, finalTimezone));
-                });
-
-                return null;
-            }
         }
 
         return BuildStageList(timezone, executingCommand.getLanguage(), false);

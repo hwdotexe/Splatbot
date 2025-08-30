@@ -92,7 +92,6 @@ public class Splatbot {
         new FetchStageData();
         new FetchWeaponData();
         new PruneStaleStageData();
-        new RefreshStickyPosts();
         new ProcessAlerts();
 
         // Set the bot name and avatar URL.
